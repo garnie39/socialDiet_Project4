@@ -21,23 +21,23 @@ function UserRegister() {
         event.preventDefault();
         const formData = new FormData(event.target);
         const fields = Object.fromEntries(formData);
-        console.log(fields);
+        console.log('feild check',fields);
 
 
         axios.post("/register", fields)
     
-            .then((res)=> {
-                console.log("react response",res)
-                console.log("All Data",res.data)
-                console.log("this is new List details",res.config.data)
-                const nameDataGet=res.config.data
+            .then((response)=> {
+                console.log("react responseponse",response)
+                console.log("All Data",response.data)
+                console.log("this is new List details",response.config.data)
+                const nameDataGet=response.config.data
                 const parsedData = JSON.parse(nameDataGet);
                // const nameData = parsedData.title;
-              console.log(parsedData)
+              console.log('check1234',parsedData)
             }).catch((e) =>{
                 console.log('error',e);
             });
-            // Reset the form fields after submission
+            // responseet the form fields after submission
             setNewFormDetails({
                 name:"",
                 email:"",
@@ -72,7 +72,7 @@ function UserRegister() {
             <br/>
        
 
-            <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
+            <FloatingLabel controlId="floatingEmail" label="Email addresponses" className="mb-3">
                 <Form.Control type="email" placeholder="name@example.com" style={{ width: '300px' }} name='email'   onChange={handleChange} value={newFormDetails.email} />
             </FloatingLabel>
             <br/>
@@ -83,7 +83,7 @@ function UserRegister() {
             </FloatingLabel>
             <br/>
 
-            <FloatingLabel controlId="floatingInput" label="Location">
+            <FloatingLabel controlId="floatingLocation" label="Location">
                 <Form.Control type="text" placeholder="location" style={{ width: '300px' }} name="location"  onChange={handleChange}  value={newFormDetails.location} />
             </FloatingLabel>
 

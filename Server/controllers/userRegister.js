@@ -1,42 +1,80 @@
-//const express = require('express')
-//const { ObjectId } = require('mongodb')
 import { response } from "express";
-//import bcrypt from "bcrypt";
-
-//  import { express } from 'express'
+import bcrypt from "bcrypt";
+// import { express } from 'express'
 // import pkg from 'express';
-// const { express } = pkg;
 // import {ObjectId} from 'mongodb'
-//const db = require('../db')
-//const asyncHandler = require('../middleware/async-handler')
-//const UserSchema = require("../models/UserSchema")
+import db from '../db/database.js'
 import User from '../models/UserSchema.js'
+import connectToMongoDb from '../db/database.js'
 
-//const router = express.Router()
+connectToMongoDb('socialDiet') 
 
 const handleNewUser = async (request, response) => {
-  console.log('request Check',request)
-    const { email, password, name ,location} = request.body;
-    //filed missing
+  const { name, email, password, location } = request.body;
+  const passwordHash = bcrypt.hashSync(
+    request.body.password,
+    bcrypt.genSaltSync()
+  );
+    //email duplicate error
+    User.findOne({ email: email }).then(async (user) => {
+      if (user) {
+        response.status(400).json({ message: "Email already exist" });
+        return;
+      }
+
+//filed missing
     if (!name || !email || !password) {
-      response.status(400).json({ message: "Missing field" });
+      res.status(400).json({ message: "missiong mandatory fields" });
       return;
     }
+    if (password.length < 8) {
+      response
+        .status(400)
+        .json({ message: "password must be 8 characters or more" });
+      return;
+    }
+      
+  try {
+      // Create a new user document using the User model
+      const newUser = await User.create({
+          name,
+          email,
+          password:passwordHash,
+          location,
+      });
+
+      console.log('controller page user', newUser);
+      // Respond with the created user
+      response.status(201).json({ message: "New account created success", user: newUser});
+  } catch (error) {
+      console.error(error);
+      response.status(400).json({ Error: "New account creation failed." });
+  }
+}
+)}
+
+
+  const getAllUsers = (request, response) => {
+    console.log('getAllusers',response)
+    User.find()
+      //.toArray()
+      .then((user) => {
+        response.json({ users:user });
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        response.status(500).json({ error: "An error occurred while fetching users." });
+      });
+  };
   
-    //email duplicate error
-    // User.findOne({ email: email }).then(async (user) => {
-    //   if (user) {
-    //     response.status(400).json({ message: "Email already exist" });
-    //     return;
-    //   }
-    //   //bad password
-    //   //password needs to be more than 8 characters
-    //    if (password.length < 8) {
-    //     response
-    //       .status(400)
-    //       .json({ message: "Password needs a minimum of  8 characters" });
-    //     return;
-    //   }
+  
+export { getAllUsers, handleNewUser };
+
+
+
+
+
+  //////////////////////////////////////////////////////////
     //   //needs to includes at least one lowercase
     //   if (!/[A-Z]/.test(password)) {
     //     response.status(400).json({
@@ -58,129 +96,5 @@ const handleNewUser = async (request, response) => {
     //       .json({ message: "Your password needs at least one number." });
     //     return;
     //   }
-  
-    //   const hashPassword = bcrypt.hashSync(
-    //     request.body.password,
-    //     bcrypt.genSaltSync()
-    //   );
-  
-  
-      //insert (register) user data into collection "users"
-  
-      try { 
-        // const newUser = await User.create({
-        //   name: name,
-        //   email: email,
-        //   //passwordHash: hashPassword,
-        //   password:password,
-        //   location:location
-        // })
-  
-        // request.session.email = newUser.email;
-        // request.session.name = newUser.name;
-        // request.session.user = newUser;
-        // response.json({ message: "New account created success", user: newUser});
-        const name = req.body.name.trim()
-        const email = req.body.email.trim() 
-        const password = req.body.password.trim() 
-        const location= req.body.location.trim() 
-        console.log('controller page user',User)
-        const resp = await db().insertOne({...User, name: name, email: email, password: password, location:location})
-        //const created = await db().findOne({ _id: new ObjectId(resp.insertedId) })
-        res.status(201).json(created)
-  
-      } catch (error) {
-        console.log(error)
-        response.status(400).json({ Error: "New account created unknown error"});
-      };
-    }
-    //);
- // };
 
-// get all users
-const getAllUsers = (request, response) => {
-    User.find()
-      .toArray()
-      .then((user) => {
-        response.json({ users: user });
-      });
-  };
-
-  // router.get("/", (req, res) => {
-  //   userCollection
-  //     .find()
-  //     .toArray()
-  //     .then((response) => {
-  //       res.json({ users: response });
-  //     });
-  // });
   
-export { getAllUsers, handleNewUser };
-// const userExists = asyncHandler(async (req, res, next) => {
-//   const { id } = req.params;
-//   const resp = await db().findOne({ _id : new ObjectId(id)})
-  
-//   if (!resp) {
-//     const err = new Error('not found')
-//     err.status = 404
-//     throw err
-//   }
-  
-//   req.todo = resp
-//   next()
-// })
-
-// router.post('/', asyncHandler(async (req, res) => {
-//   const name = req.body.name.trim()
-//   const email = req.body.email.trim()
-//   const password = req.body.password.trim()
-//   const location = req.body.location.trim()
-//   const resp = await db().insertOne({...userSchema, name: name, email: email, password: password,  location: location})
-//   const created = await db().findOne({ _id: new ObjectId(resp.insertedId) })
-//   res.status(201).json(created)
-// }))
-
-// router.get('/', asyncHandler(async (req, res) => {
-//   const orderByQuery = {completed: -1, last_updated_at: -1}
-//   const resp = await db().find().sort(orderByQuery).toArray()
-//   res.json(resp)
-// }))
-
-// router.get('/:id', todoExists, asyncHandler(async (req, res) => {
-//   res.json(req.todo)
-// }))
-
-// router.put('/:id', todoExists, asyncHandler(async (req, res) => {
-//   const { todo } = req
-//   const { id } = req.params
-//   const name = req.body.name?.trim() || todo.name
-//   const completed = typeof req.body.completed !== 'boolean' ? todo.completed : req.body.completed
-//   const email = req.body.email?.trim() || todo.email
-
-//   const resp = await db().findOneAndUpdate(
-//     { _id: new ObjectId(id) }, 
-//     {
-//       "$set": {
-//         name: name, 
-//         email: email, 
-//         completed: completed,
-//         last_updated_at: new Date()
-//       }
-//     },
-//     { includeResultMetadata: true }
-//     )
-//   if(!resp.ok){ 
-//     const err = new Error("There was some error updating the document.");
-//     err.status(500)
-//     throw err
-//   }
-//   const updated = await db().findOne({_id: new ObjectId(id)})
-//   res.json(updated) 
-// }))
-
-// router.delete('/:id', asyncHandler(async (req, res) => {
-//   const { id } = req.params
-//   await db().deleteOne({_id: new ObjectId(id)})
-//   res.status(204).send()
-// }))
-

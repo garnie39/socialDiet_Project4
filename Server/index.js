@@ -4,13 +4,14 @@ import  connectToMongoDb  from "./db/database.js";
 import registerRoute from "./routes/register.js"
 import apiUsersRoute from "./routes/api/users.js"
 
-
+// import { enableSession } from "./middleware/session.js";
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(express.static("public"));
 app.use(express.json());
+// app.use(enableSession);
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true}));
 
@@ -18,7 +19,7 @@ connectToMongoDb();
 
 
 
-app.use("/api/users", apiUsersRoute);
+app.use("/api/user", apiUsersRoute);
 app.use("/register", registerRoute);
 
 
@@ -31,10 +32,4 @@ mongoose.connection.once("open", () => {
     console.log("Connected to MongoDB");
     app.listen(PORT, () => console.log(`server running on port%%%%% ${PORT}`));
   });
-// app.listen(PORT, () => {
-//   console.log('Listening on port', PORT)
-// })
 
-// connectToMongoDb().then(() => {
-//     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-//   });
