@@ -1,39 +1,37 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import { ObjectId } from "mongodb";
 
-const dailyRecordSchema = new Schema({
-  userId: {
-    type: String,
-  },
-  weightMeasurement: {
+const weightMeasurementSchema = new mongoose.Schema({
+  weight: {
     type: Number,
   },
-  Date: {
+  date: {
     type: Date,
   },
-  breakfast: {
-    type: String,
+  toiletStool: {
+    type: Boolean,
   },
-  breakfastCal: {
-    type: Number,
+  happyFeel: {
+    type: Boolean,
   },
-  lunch: {
-    type: String,
+  sadFeel: {
+    type: Boolean,
   },
-  lunchCal: {
-    type: Number,
+  eatCheck: {
+    type: Boolean,
   },
-  dinner: {
-    type: String,
+  exercise: {
+    type: Boolean,
   },
-  dinnerCal: {
-    type: Number,
+  alchole: {
+    type: Boolean,
   },
-  totalCal: {
-    type: Number,
+  userID: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
   },
 });
 
-const dailyRecordModel = mongoose.model("dailyRecord", dailyRecordSchema);
+const dailyModel = mongoose.model("dailyRecord", weightMeasurementSchema);
 
-export default dailyRecordModel;
+export default dailyModel;

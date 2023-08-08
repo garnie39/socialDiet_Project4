@@ -25,3 +25,19 @@ const handleNewProgram = async (request, response) => {
     response.status(400).json({ error: "Failed to upload your details" });
   }
 };
+
+const getAllPrograms = (request, response) => {
+  console.log("getAllPrograms", response);
+  Program.find()
+    .then((program) => {
+      response.json({ program: program });
+    })
+    .catch((error) => {
+      console.error("Error fetching programs:", error);
+      response
+        .status(500)
+        .json({ error: "An error occurred while fetching programs" });
+    });
+};
+
+export { getAllPrograms, handleNewProgram };

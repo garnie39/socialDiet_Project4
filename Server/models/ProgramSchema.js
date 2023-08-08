@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { ObjectId } from "mongodb";
 
 const programSchema = new Schema({
-  userId: {
-    type: String,
+  userID: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
   },
   weigth: {
     type: Number,
