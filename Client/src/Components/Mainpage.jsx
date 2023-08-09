@@ -9,6 +9,8 @@ function Mainpage() {
         <p>Once user loged in this page show </p>
         <ul>
             <li>Here is Dailyrecode.jsx</li>
+            <DailyRecord />
+    
         </ul>
         <br/>
         <ul>

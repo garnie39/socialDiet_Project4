@@ -35,9 +35,6 @@ function UserLogin() {
         console.log(userLoginDetail)
     }
 
-    
-
-
   return (
     <div className='userLogin_container'>
         <h2>Login page</h2>
@@ -55,6 +52,9 @@ function UserLogin() {
             <p>Are you new?</p>
             <button><a href="/toUserRegister">Register</a></button>
         </div>
+
+        <p>needs to fix if user logged in going to mainpage</p>
+        <button><a href='/mainpage'>MAIN page</a></button>
     </div>
   )
 }

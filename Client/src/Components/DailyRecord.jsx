@@ -1,27 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import axios from 'axios'
-import Form from 'react-bootstrap/Form';
-// import { Datepicker} from '@mobiscroll/react';
+import React, { useState, useEffect, Component } from 'react';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 function DailyRecord() {
-    const [weightInKg, setWeightInKg] = useState(0);
+ 
 
   return (
         <div className="dailyRecordform">
-        <form onSubmit={''}>
+        <form >
         <h2>Ddaily Record page</h2>
-            <FloatingLabel controlId="floatingWeight" label="weight">
-                <Form.Control type="number" placeholder="Weight" style={{ width: '300px' }} name="weight" onChange={''}   />
-            </FloatingLabel>
             <br/>
-{/*        
-            <Datepicker
-            controls={['date']}
-            touchUi={true}
-            inputComponent="input"
-            inputProps={'Please Select...'}/> */}
 
+            <div className='calendar_container'>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker />
+              </LocalizationProvider>
+            </div>
+
+            <div className='daily_weight_check'>
+              <label>weight</label>
+              <input type='weight'></input>
+              <br/>
+              <label>Today's feeling</label>
+              <ul>
+                <li><button>well</button></li>
+                <li><button>unwell</button></li>
+                <li><button>toilet</button></li>
+                <li><button>food</button></li>
+                <li><button>sports</button></li>
+                <li><button>alchole</button></li>
+              </ul>
+
+            </div>
 
            <input type="submit"></input>
            <hr/>

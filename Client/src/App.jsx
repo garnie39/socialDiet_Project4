@@ -7,6 +7,7 @@ import UserLogin from './Components/UserLogin'
 import Mainpage from './Components/Mainpage'
 
 
+
 function App() {
   //check user authenticafation (if false show login opage / if true show main page)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,9 +27,11 @@ function App() {
     <Route path="/" element={isAuthenticated? <Mainpage />:<UserLogin />}/>
       <Route path="/userLogin" element={<UserLogin setAuth={setAuth} />} />
       <Route path="/toUserRegister" element={<UserRegister />} />
+      <Route path="/dailyRecord" element={<DailyRecord />} />
+      <Route path="/mainpage" element={<Mainpage/>}/>
     </Routes>
 
-    <Mainpage />
+ 
     </>
   )
 }
