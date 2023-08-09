@@ -1,8 +1,5 @@
-import { response } from "express";
+import { response,request } from "express";
 import bcrypt from "bcrypt";
-// import { express } from 'express'
-// import pkg from 'express';
-// import {ObjectId} from 'mongodb'
 import db from '../db/database.js'
 import User from '../models/UserSchema.js'
 import connectToMongoDb from '../db/database.js'
@@ -58,7 +55,6 @@ const handleNewUser = async (request, response) => {
 
 
   const getAllUsers = (request, response) => {
-    console.log('getAllusers',response)
     User.find()
       //.toArray()
       .then((user) => {

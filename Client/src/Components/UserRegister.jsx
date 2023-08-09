@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios'
-// import Rating from '@mui/material/Rating';
-// import Stack from '@mui/material/Stack';
 import Form from 'react-bootstrap/Form';
 
 
@@ -95,11 +93,14 @@ function UserRegister() {
             </FloatingLabel>
 
 
-           <input type="submit"></input>
+             <input type="submit"></input>
+            <div className='login-page'>
+                <p>Already have account?</p>
+                <button><a href='/userLogin'>Login</a></button>
+            </div> 
            <hr/>
            </form>
         </div>
-
         </>
       );
 }
