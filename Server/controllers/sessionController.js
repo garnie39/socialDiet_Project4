@@ -1,6 +1,7 @@
 import User from "../models/UserSchema.js"
 
-const verifyLoggedIn = async (req, res) => {
+
+export const verifyLoggedIn = async (req, res) => {
     try{
         if (req.session.email) {
             return res.json({
@@ -16,5 +17,3 @@ const verifyLoggedIn = async (req, res) => {
             return res.status(400).json({ message: "Failed to validate OAuth account" });
           }
     };
-
-export default {verifyLoggedIn};

@@ -14,18 +14,9 @@ const userSchema = new Schema({
   password: {
     type: String,
   },
-<<<<<<< HEAD
-//   passwordHash: {
-//     type: String,
-//   },
-//   DOB: {
-//     type: Date,
-//   },
-=======
   DOB: {
     type: Date,
   },
->>>>>>> daily_record_part
   location: {
     type: String,
   },
