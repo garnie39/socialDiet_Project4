@@ -3,8 +3,8 @@ import axios from 'axios'
 import Mainpage from './Mainpage';
 
 
-function UserLogin() {
- 
+function UserLogin(props) {
+ console.log('show setAuth',props.setAut)
 
     const [userLoginDetail, setUserLoginDetail] =useState({
         email:'',
@@ -20,6 +20,7 @@ function UserLogin() {
         axios.post('http://localhost:3000/api/login',fields)
             .then((response) => {
                 console.log("res.data on login:", response.data);
+                //props.setAuth(true)
             })
             .catch((error) => {
               console.log('user login error',error);
@@ -53,8 +54,8 @@ function UserLogin() {
             <button><a href="/toUserRegister">Register</a></button>
         </div>
 
-        <p>needs to fix if user logged in going to mainpage</p>
-        <button><a href='/mainpage'>MAIN page</a></button>
+        {/* <p>needs to fix if user logged in going to mainpage</p>
+        <button><a href='/mainpage'>MAIN page</a></button> */}
     </div>
   )
 }

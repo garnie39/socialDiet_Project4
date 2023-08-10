@@ -16,15 +16,15 @@ function App() {
     setIsAuthenticated(value);
   };
 
-  useEffect(()=>{
-    localStorage.setItem("auth", JSON.stringify(isAuthenticated));
-  }, [isAuthenticated]);
+  // useEffect(()=>{
+  //   localStorage.setItem("auth", JSON.stringify(isAuthenticated));
+  // }, [isAuthenticated]);
 
 
   return (
     <>
     <Routes>
-    <Route path="/" element={isAuthenticated? <Mainpage />:<UserLogin />}/>
+    <Route path="/" element={isAuthenticated === true? <Mainpage />:<UserLogin />}/>
       <Route path="/userLogin" element={<UserLogin setAuth={setAuth} />} />
       <Route path="/toUserRegister" element={<UserRegister />} />
       <Route path="/dailyRecord" element={<DailyRecord />} />
