@@ -1,5 +1,5 @@
 import express from 'express'
-import { handleLogout } from '../controllers/userControle';
+import { handleLogout } from '../controllers/userControle.js';
 
 
 

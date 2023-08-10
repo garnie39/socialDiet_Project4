@@ -7,7 +7,7 @@ import session from 'express-session'
 
 
 const handleUserLogin = (request,response) =>{
-console.log('handleUserLogin',request.bosy)
+
 const {email ,password} = request.body;
   //filed missing
   if (!email || !password) {
@@ -20,12 +20,14 @@ const {email ,password} = request.body;
       const isValidPassword = bcrypt.compareSync(password, user.password);
 
       if (isValidPassword) {
+        console.log('session check',request.session)
       response.json({
         message: "Logged in Successfully",
         isAuthenticated: true,
         name: user.name,
         email: user.email,
       });
+      request.session.email = email
     } else {
       response.status(401).json({ message: "Incorrect password" });
     }
