@@ -1,16 +1,15 @@
-import { response } from "express";
+import { response,request } from "express";
 import bcrypt from "bcrypt";
-// import { express } from 'express'
-// import pkg from 'express';
-// import {ObjectId} from 'mongodb'
 import db from '../db/database.js'
 import User from '../models/UserSchema.js'
 import connectToMongoDb from '../db/database.js'
 
-connectToMongoDb('socialDiet') 
+// connectToMongoDb().then((_)=>{
+//   console.log('string connected')
+// }) 
 
 const handleNewUser = async (request, response) => {
-  const { name, email, password, location } = request.body;
+  const { name, email, password, location, DOB } = request.body;
   const passwordHash = bcrypt.hashSync(
     request.body.password,
     bcrypt.genSaltSync()
@@ -41,6 +40,7 @@ const handleNewUser = async (request, response) => {
           email,
           password:passwordHash,
           location,
+          DOB,
       });
 
       console.log('controller page user', newUser);
@@ -55,7 +55,6 @@ const handleNewUser = async (request, response) => {
 
 
   const getAllUsers = (request, response) => {
-    console.log('getAllusers',response)
     User.find()
       //.toArray()
       .then((user) => {
