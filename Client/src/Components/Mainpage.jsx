@@ -1,8 +1,15 @@
 import React from 'react'
 import DailyRecord from './DailyRecord'
 import NavbarPage from './Navbar'
+import axios from 'axios'
 
-function Mainpage() {
+function Mainpage(props) {
+
+    const handleLogout =()=>{
+        axios.delete("http://localhost:3000/api/logout").then((res) => {
+            console.log(res)
+        })
+    }
   return (
     <div className='main-page-container'>
         <hr/>
@@ -19,6 +26,7 @@ function Mainpage() {
         <div className='navbar-page-container'>
             <NavbarPage />
         </div>
+        <button onClick={handleLogout}>logout</button>
     </div>
   )
 }

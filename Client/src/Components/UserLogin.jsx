@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Mainpage from './Mainpage';
-
+import { useNavigate } from "react-router-dom"
 
 function UserLogin(props) {
- console.log('show setAuth',props.setAut)
+
+    const history =useNavigate()
 
     const [userLoginDetail, setUserLoginDetail] =useState({
         email:'',
@@ -20,7 +21,8 @@ function UserLogin(props) {
         axios.post('http://localhost:3000/api/login',fields)
             .then((response) => {
                 console.log("res.data on login:", response.data);
-                //props.setAuth(true)
+                //user login success redirect to mianpage
+                history("/mainpage")
             })
             .catch((error) => {
               console.log('user login error',error);

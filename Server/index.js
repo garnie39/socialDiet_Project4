@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import  connectToMongoDb  from "./db/database.js";
 import registerRoute from "./routes/register.js"
 import loginRoute from "./routes/login.js"
+import logoutRoute from "./routes/logout.js"
 import apiUsersRoute from "./routes/api/users.js"
 import dotenv from 'dotenv'
 dotenv.config()
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use("/api/user", apiUsersRoute);
 app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
+app.use("/api/logout", logoutRoute);
 
 
 app.get("/", (req, res) => {

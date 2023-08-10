@@ -5,6 +5,7 @@ import DailyRecord from './Components/DailyRecord'
 import {Routes, Route} from 'react-router-dom'
 import UserLogin from './Components/UserLogin'
 import Mainpage from './Components/Mainpage'
+import Homepage from './Components/Homepage'
 
 
 
@@ -24,13 +25,15 @@ function App() {
   return (
     <>
     <Routes>
-    <Route path="/" element={isAuthenticated === true? <Mainpage />:<UserLogin />}/>
+    {/* <Route path="/" element={isAuthenticated === true? <Mainpage />:<UserLogin />}/> */}
       <Route path="/userLogin" element={<UserLogin setAuth={setAuth} />} />
       <Route path="/toUserRegister" element={<UserRegister />} />
       <Route path="/dailyRecord" element={<DailyRecord />} />
-      <Route path="/mainpage" element={<Mainpage/>}/>
+      <Route path="/mainpage" element={<Mainpage  setAuth={setAuth}/>}/>
+      <Route path="/" element={<Homepage />}/>
     </Routes>
 
+ 
  
     </>
   )
