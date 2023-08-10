@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 import mongoose from "mongoose";
 import  connectToMongoDb  from "./db/database.js";
 import registerRoute from "./routes/register.js"
@@ -11,14 +11,14 @@ dotenv.config()
 
 // import { enableSession } from "./middleware/session.js";
 
-const app = express()
-const PORT = process.env.PORT || 3000
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.use(express.json());
 // app.use(enableSession);
 // app.use(express.urlencoded({ extended: false }));
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // connectToMongoDb();
 
@@ -27,10 +27,11 @@ app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/logout", logoutRoute);
 
+app.use("/api/event", eventsRoute);
 
 app.get("/", (req, res) => {
-    res.json({ message: "hello why?" });
-  });
+  res.json({ message: "hello why?" });
+});
 
   connectToMongoDb().then(()=>{
 //After mongoose client opens a successfull connection to the database, check if it returns "open", and if so, run the callback below which turns on the server.
