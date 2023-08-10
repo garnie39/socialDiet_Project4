@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios'
-// import Rating from '@mui/material/Rating';
-// import Stack from '@mui/material/Stack';
 import Form from 'react-bootstrap/Form';
 
 
@@ -14,7 +12,8 @@ function UserRegister() {
         name:"",
         email:"",
         password:"",
-        location:""
+        location:"",
+        dob:""
     })
     
     const handleSubmit = (event) => {
@@ -24,16 +23,16 @@ function UserRegister() {
         console.log('feild check',fields);
 
 
-        axios.post("/register", fields)
-    
+        axios.post("http://localhost:3000/api/register", fields)
             .then((response)=> {
-                console.log("react responseponse",response)
-                console.log("All Data",response.data)
-                console.log("this is new List details",response.config.data)
+                // console.log("react responseponse",response)
+                // console.log("All Data",response.data)
+                // console.log("this is new List details",response.config.data)
                 const nameDataGet=response.config.data
                 const parsedData = JSON.parse(nameDataGet);
+                const nameData = parsedData.name;
                // const nameData = parsedData.title;
-              console.log('check1234',parsedData)
+              console.log('check1234',nameData)
             }).catch((e) =>{
                 console.log('error',e);
             });
@@ -42,7 +41,8 @@ function UserRegister() {
                 name:"",
                 email:"",
                 password:"",
-                location:""
+                location:"",
+                dob:""
             });
     };
         const handleChange=(event) =>{
@@ -86,9 +86,19 @@ function UserRegister() {
             <FloatingLabel controlId="floatingLocation" label="Location">
                 <Form.Control type="text" placeholder="location" style={{ width: '300px' }} name="location"  onChange={handleChange}  value={newFormDetails.location} />
             </FloatingLabel>
+            <br/>
+
+            <FloatingLabel controlId="floatingDOB" label="DOB">
+                <Form.Control type="date" placeholder="DOB" style={{ width: '300px' }} name="dob"  onChange={handleChange}  value={newFormDetails.dob} />
+            </FloatingLabel>
 
 
-           <input type="submit"></input>
+             <input type="submit"></input>
+            <div className='login-page'>
+                <p>Already have account?</p>
+                <button><a href='/userLogin'>Login</a></button>
+            </div> 
+           <hr/>
            </form>
         </div>
         </>
