@@ -1,0 +1,31 @@
+GET http://localhost:3000/api/event
+
+###
+GET http://localhost:3000/api/event/64d3909aa038e9217bcf9b85
+
+### 
+POST http://localhost:3000/api/event
+Content-Type: application/json
+
+{
+    "join": "true",
+    "time": "12.00pm",
+    "location": {"street": "La Trobe Street", "city": "Melbourne"},
+    "eventType": "test",
+    "comment": [{"user": "boo", "comment": "test"}]
+}
+
+###
+PATCH http://localhost:3000/api/event/64d3909aa038e9217bcf9b85
+Content-Type: application/json
+
+{
+    "join": "true",
+    "time": "4.00pm",
+    "location": {"street": "La Trobe Street", "city": "Melbourne"},
+    "eventType": "test2",
+    "comment": [{"user": "booboo", "comment": "test"}]
+}
+
+###
+DELETE http://localhost:3000/api/event/64d3909aa038e9217bcf9b85
