@@ -11,7 +11,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import expressSession from 'express-session'
 import MongoStore from 'connect-mongo';
-import apiSessionRouter from "./routes/api/session.js";
+
 
 // import { enableSession } from "./middleware/session.js";
 
