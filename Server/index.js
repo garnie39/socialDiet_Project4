@@ -6,10 +6,12 @@ import loginRoute from "./routes/login.js"
 import logoutRoute from "./routes/logout.js"
 import apiUsersRoute from "./routes/api/users.js"
 import apiSessionRouter from "./routes/api/session.js";
+import userDailyRecord from "./routes/api/dailyRecord.js"
 import dotenv from 'dotenv'
 dotenv.config()
 import expressSession from 'express-session'
 import MongoStore from 'connect-mongo';
+import apiSessionRouter from "./routes/api/session.js";
 
 // import { enableSession } from "./middleware/session.js";
 
@@ -39,6 +41,8 @@ app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/logout", logoutRoute);
 
+app.use("/api/session", apiSessionRouter);
+app.use("/api/dailyRecord", userDailyRecord);
 app.use("/api/session", apiSessionRouter);
 
 

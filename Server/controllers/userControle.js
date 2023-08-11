@@ -20,7 +20,11 @@ const {email ,password} = request.body;
       const isValidPassword = bcrypt.compareSync(password, user.password);
 
       if (isValidPassword) {
-        console.log('session check',request.session)
+        //create session details
+        request.session.email = email;
+        request.session.name = user.name;
+        request.session.user = user;
+        console.log('session check:',request.session.user._id)
       response.json({
         message: "Logged in Successfully",
         isAuthenticated: true,

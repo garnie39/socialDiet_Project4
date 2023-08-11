@@ -8,7 +8,7 @@ export const verifyLoggedIn = async (req, res) => {
             isAuthenticated: true,
             email: req.session.email,
             name: req.session.name,
-            message: "Logged in Successfully",
+            message: "is verifyLoggedIn ",
             });
         } else {
             return res.status(200).json({ isAuthenticated: false });
