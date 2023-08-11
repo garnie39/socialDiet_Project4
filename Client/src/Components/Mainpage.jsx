@@ -2,12 +2,20 @@ import React from 'react'
 import DailyRecord from './DailyRecord'
 import NavbarPage from './Navbar'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
-function Mainpage(props) {
+
+function Mainpage() {
+
+    const logoutHistory =useNavigate()
 
     const handleLogout =()=>{
         axios.delete("http://localhost:3000/api/logout").then((res) => {
             console.log(res)
+            logoutHistory("/")
+        })
+        .catch((error) => {
+            console.log('logout error',error)
         })
     }
   return (
@@ -17,9 +25,7 @@ function Mainpage(props) {
             <h1>main page  </h1>
             <p>Once user logged in this page show </p>
             <ul>
-                <li>Here is Dailyrecode.jsx</li>
                 <DailyRecord />
-        
             </ul>
             <br/>
         </div>
@@ -27,6 +33,7 @@ function Mainpage(props) {
             <NavbarPage />
         </div>
         <button onClick={handleLogout}>logout</button>
+
     </div>
   )
 }
