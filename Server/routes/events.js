@@ -5,13 +5,16 @@ import {
   handleNewEvent,
   deleteEvent,
   updateEvent,
+  getUserEvent,
 } from "../controllers/event.js";
-// import { getAllEvents } from "../controllers/event";
 
 const router = express.Router();
 
 // get all
 router.get("/", getAllEvents);
+
+// get all user's event
+router.get("/:user", getUserEvent);
 
 // get one
 router.get("/:id", getEvent);
