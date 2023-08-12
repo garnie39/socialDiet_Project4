@@ -14,11 +14,13 @@ function DailyRecord() {
 
   const [addNewDate, setAddNewDate] = useState(new Date());
 
-  const handleDate = (newDate) =>{
-    setAddNewDate(newDate)
-  }
-  console.log('full date',addNewDate)
-
+  const handleDateChange = (newDate) =>{
+    setAddNewDate(newDate);
+    setFormData({
+      ...formData,
+      date: newDate
+    });
+  };
   // console.log('year',addNewDate.getFullYear())
   // //getMonth returns 0~11, needs to add 1
   // console.log('month',addNewDate.getMonth()+1)
@@ -31,40 +33,46 @@ function DailyRecord() {
     date: addNewDate,
     weight:'',
     wellFeel: false, 
-    unWellFeel: false,
+    unwellFeel: false,
     toiletStool: false,
     eactCheck:false,
     exercise:false,
     alchole:false
-    
   });
+console.log(formData)
+
 
   const handleSubmit =(event) => {
-   
       event.preventDefault();
-      const newDailyData=JSON.stringify(formData)
+      // const newDailyData=JSON.stringify(formData)
+      const newDailyData=formData
       console.log('10',newDailyData)
+    
+     axios.post("/api/dailyRecord",newDailyData)
+      .then((response) => {
+        console.log(response.config.data)
+        const nameDataGet=response.config.data
+        // const parsedData = JSON.parse(nameDataGet);
+        console.log('parsedData',nameDataGet)
+      })
+      .catch((error) => {
+        console.log('handle dailyRecord error:',error)
+      })
+  };
 
-    // axios.post("http://localhost:3000/api/")
-  }
 
-
-     const handleOnclick =(e)=>{
+     const handleOnClickChange =(e)=>{
       //get from form data as name (json.key) value (json.value)
       const {name,value} =e.target;
       setFormData({ 
         ...formData,
-        date: addNewDate,
        [name]:value,
-     })
+     });
+  };
 
-    
-  }
-  //console.log('10',JSON.stringify(formData))
 
   //  useEffect(() => {
-  //   handleOnclick()
-  //   console.log('useEffectが実行されました');
+  //   handleOnClickChange()
   // },[setAddNewDate]);
 
   return (
@@ -73,32 +81,21 @@ function DailyRecord() {
         <h2>Ddaily Record page</h2>
             <br/>
             <div className='calendar_container'>
-            <DatePicker name='date' selected={addNewDate} onSelect={(newDate) => handleDate(newDate)} />
-              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker  
-                  name='date'
-                  //value={'formData.date'}
-                  onChange={(date) => {
-                    handleDate(date)
-                    //console.log(date.$d);
-                  }}
-
-                  />
-              </LocalizationProvider> */}
+            <DatePicker name='date'  selected={addNewDate} onChange={handleDateChange} />
             </div>
 
             <div className='daily_weight_check'>
-              <label>weight</label>
-              <input type='number' name='weight' value={formData.weight} onChange={handleOnclick}></input>
+              <label>weight / kg</label>
+              <input type='number' name='weight' value={formData.weight} onChange={handleOnClickChange}></input>
               <br/>
               <label>Today's feeling</label>
-              
-              <button type='button' name='wellFeel' value={true} onClick={handleOnclick}>well</button>
-              <button type='button' name='unWellFeel' value={true} onClick={handleOnclick}>unwell</button>
-              <button type='button' name='toiletStool' value={true} onClick={handleOnclick}>Toilet</button>
-              <button type='button' name='eatCheck' value={true} onClick={handleOnclick}>Food</button>
-              <button type='button' name='exercise' value={true} onClick={handleOnclick}>Exercise</button>
-              <button type='button' name='alchole' value={true} onClick={handleOnclick}>Alchole</button>
+              <br/>
+              <button type='button' name='wellFeel' value={true} onClick={handleOnClickChange}>well</button>
+              <button type='button' name='unwellFeel' value={true} onClick={handleOnClickChange}>unwell</button>
+              <button type='button' name='toiletStool' value={true} onClick={handleOnClickChange}>Toilet</button>
+              <button type='button' name='eatCheck' value={true} onClick={handleOnClickChange}>Food</button>
+              <button type='button' name='exercise' value={true} onClick={handleOnClickChange}>Exercise</button>
+              <button type='button' name='alchole' value={true} onClick={handleOnClickChange}>Alchole</button>
             </div>
            <input type="submit"></input>
            <hr/>
