@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios'
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom"
 
 
 function UserRegister() {
 
-   
+    const history =useNavigate()
     
     const [newFormDetails,setNewFormDetails] =useState({
         name:"",
@@ -23,7 +24,7 @@ function UserRegister() {
         console.log('feild check',fields);
 
 
-        axios.post("http://localhost:3000/api/register", fields)
+        axios.post("/api/register", fields)
             .then((response)=> {
                 // console.log("react responseponse",response)
                 // console.log("All Data",response.data)
@@ -33,6 +34,7 @@ function UserRegister() {
                 const nameData = parsedData.name;
                // const nameData = parsedData.title;
               console.log('check1234',nameData)
+              history("/")
             }).catch((e) =>{
                 console.log('error',e);
             });

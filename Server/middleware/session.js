@@ -3,7 +3,7 @@
 
 // const store = new MongoStore({
 //   //mongoUrl: process.env.DATABASE_URI,
-//   mongoUrl: "mongodb+srv://MisaGarnie:Gyx0YhfPLgcaUo99@cluster0.chw5mzk.mongodb.net/?retryWrites=true&w=majority",
+//   mongoUrl:  process.env.DATABASE_URI,
 //   collectionName: "socialDiet",
 // });
 
