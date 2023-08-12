@@ -31,7 +31,11 @@ const eventSchema = new mongoose.Schema({
     type: Object,
   },
   location: {
-    type: { street: { type: String }, city: { type: String } },
+    type: {
+      locationName: { type: String },
+      street: { type: String },
+      city: { type: String },
+    },
   },
   eventType: {
     type: String,

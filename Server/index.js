@@ -1,29 +1,28 @@
-import express from 'express';
+import express from "express";
 import mongoose from "mongoose";
-import  connectToMongoDb  from "./db/database.js";
-import registerRoute from "./routes/register.js"
-import loginRoute from "./routes/login.js"
-import logoutRoute from "./routes/logout.js"
-import apiUsersRoute from "./routes/api/users.js"
+import connectToMongoDb from "./db/database.js";
+import registerRoute from "./routes/register.js";
+import loginRoute from "./routes/login.js";
+import logoutRoute from "./routes/logout.js";
+import apiUsersRoute from "./routes/api/users.js";
 import apiSessionRouter from "./routes/api/session.js";
-import userDailyRecord from "./routes/api/dailyRecord.js"
-import dotenv from 'dotenv'
-dotenv.config()
-import expressSession from 'express-session'
-import MongoStore from 'connect-mongo';
-
+import userDailyRecord from "./routes/api/dailyRecord.js";
+import dotenv from "dotenv";
+import event from "./routes/events.js";
+dotenv.config();
+import expressSession from "express-session";
+import MongoStore from "connect-mongo";
 
 // import { enableSession } from "./middleware/session.js";
 
-const app = express()
-const PORT = process.env.PORT || 3000
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.use(express.json());
 // app.use(enableSession);
 // app.use(express.urlencoded({ extended: false }));
-app.use(express.urlencoded({ extended: true}));
-
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   expressSession({
@@ -44,21 +43,16 @@ app.use("/api/logout", logoutRoute);
 app.use("/api/session", apiSessionRouter);
 app.use("/api/dailyRecord", userDailyRecord);
 app.use("/api/session", apiSessionRouter);
-
-
-
-
+app.use("/api/event", event);
 
 app.get("/", (req, res) => {
-    res.json({ message: "hello why?" });
-  });
+  res.json({ message: "hello why?" });
+});
 
-  connectToMongoDb().then(()=>{
-//After mongoose client opens a successfull connection to the database, check if it returns "open", and if so, run the callback below which turns on the server.
-mongoose.connection.once("open", (_) => {
+connectToMongoDb().then(() => {
+  //After mongoose client opens a successfull connection to the database, check if it returns "open", and if so, run the callback below which turns on the server.
+  mongoose.connection.once("open", (_) => {
     console.log("Connected to MongoDB");
-  
   });
-
-  })
-  app.listen(PORT, () => console.log(`server running on port${PORT}`));
+});
+app.listen(PORT, () => console.log(`server running on port${PORT}`));

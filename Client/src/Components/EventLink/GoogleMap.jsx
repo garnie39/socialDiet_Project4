@@ -1,49 +1,29 @@
-import React, { useCallback, useState, forwardRef, memo } from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import React from "react";
+import { useJsApiLoader } from "@react-google-maps/api";
 import dotenv from "dotenv";
 
 //     center: { lat: -37.80958828739083, lng: 144.9651789676742 },
 
-const containerStyle = {
-  width: "400px",
-  height: "400px",
-};
-
-const center = {
-  lat: -37.80958828739083,
-  lng: 144.9651789676742,
-};
-
-function Maps() {
+function Maps(props) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyC7yZTZaXUuy3ZB7R-9Id6oChdsy0tn0CI",
+    googleMapsApiKey: import.meta.env.VITE_YOUR_API_KEY,
   });
 
-  const [map, setMap] = useState(null);
+  console.log(props.location);
 
-  const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-
-    setMap(map);
-  }, []);
-
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={14}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    ></GoogleMap>
+  return isLoaded && props.location ? (
+    <iframe
+      width="400px"
+      height="400px"
+      loading="lazy"
+      src={`https://www.google.com/maps/embed/v1/place?key=${
+        import.meta.env.VITE_YOUR_API_KEY
+      }&q=${props.location}`}
+    ></iframe>
   ) : (
     <></>
   );
 }
 
-export default React.memo(Maps);
+export default Maps;

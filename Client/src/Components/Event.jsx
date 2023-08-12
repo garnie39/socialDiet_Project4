@@ -3,6 +3,7 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Maps from "./EventLink/GoogleMap";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
+import GetAllEvents from "./EventLink/GetEvent";
 function SearchEvent() {
   const [search, setSearch] = useState("");
 
@@ -36,10 +37,11 @@ function SearchEvent() {
             // onChange={handleChange}
             // value={newsearchForm.search}
           />
+          <input type="submit"></input>
         </FloatingLabel>
-        <input type="submit"></input>
       </form>
       <Maps />
+      <GetAllEvents />
     </>
   );
 }
