@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DailyRecord from './DailyRecord'
 import NavbarPage from './Navbar'
 import axios from 'axios'
@@ -10,7 +10,7 @@ function Mainpage() {
     const logoutHistory =useNavigate()
 
     const handleLogout =()=>{
-        axios.delete("http://localhost:3000/api/logout").then((res) => {
+        axios.delete("/api/logout").then((res) => {
             console.log(res)
             logoutHistory("/")
         })
@@ -18,6 +18,20 @@ function Mainpage() {
             console.log('logout error',error)
         })
     }
+
+
+    useEffect (() => {
+        axios.get('/api/session')
+
+        .then((response) => {
+            console.log("res.data on login:", response.data);  
+        })
+        .catch((error) => {
+          console.log('user login error',error);
+})
+    },[])
+
+
   return (
     <div className='main-page-container'>
         <hr/>

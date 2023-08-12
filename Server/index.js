@@ -6,12 +6,13 @@ import loginRoute from "./routes/login.js";
 import logoutRoute from "./routes/logout.js";
 import apiUsersRoute from "./routes/api/users.js";
 import apiSessionRouter from "./routes/api/session.js";
-import userDailyRecord from "./routes/api/dailyRecord.js";
-import dotenv from "dotenv";
+import userDailyRecord from "./routes/api/dailyRecord.js"
+import dotenv from 'dotenv'
+dotenv.config()
+import expressSession from 'express-session'
+import MongoStore from 'connect-mongo';
 import event from "./routes/events.js";
-dotenv.config();
-import expressSession from "express-session";
-import MongoStore from "connect-mongo";
+// import { enableSession } from './middleware/session.js';
 
 // import { enableSession } from "./middleware/session.js";
 
@@ -31,6 +32,15 @@ app.use(
       dbName: "socialDiet",
     }),
     secret: process.env.EXPRESS_SESSION_SECRET_KEY,
+    // resave: false, // Set resave option explicitly to false
+    // saveUninitialized: false,
+    // httpOnly: false,
+    // cookie: {
+    //   path: "/",
+    //   secure: true, // Set to true if using HTTPS
+    //   httpOnly: true, // Cookie is inaccessible to client-side scripts
+    //   maxAge: 86400000, // Cookie expiration time in milliseconds (e.g., 1 day)
+    // },
   })
 );
 // connectToMongoDb();
@@ -42,8 +52,8 @@ app.use("/api/logout", logoutRoute);
 
 app.use("/api/session", apiSessionRouter);
 app.use("/api/dailyRecord", userDailyRecord);
-app.use("/api/session", apiSessionRouter);
 app.use("/api/event", event);
+//app.use("/api/session", apiSessionRouter);
 
 app.get("/", (req, res) => {
   res.json({ message: "hello why?" });

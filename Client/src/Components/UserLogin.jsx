@@ -1,52 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import axios from 'axios'
 import Mainpage from './Mainpage';
 import { useNavigate } from "react-router-dom"
+//import { UserIDContext } from '../App.js'
 
 function UserLogin(props) {
 
     const history =useNavigate()
+     //const setUserLoginDetailId= useContext(UserIDContext)
 
-    const [userLoginDetail, setUserLoginDetail] =useState({
-        email:'',
-        password:''
-    })
+    //console.log('userlogin react page check useContext:',setUserLoginDetailId )
+
+    // const [userLoginDetail, setUserLoginDetail] =useState({
+    //     email:'',
+    //     password:'',
+    //     _id:''
+    // })
 
     const handleSubmit =  (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const fields = Object.fromEntries(formData);
-        console.log('user login check',fields);
+        //console.log('user login check',fields);
           
-        axios.post('http://localhost:3000/api/login',fields)
+        axios.post('/api/login',fields)
             .then((response) => {
+                axios.get('/api/session')
+                        .then((response) => {
+                            console.log("res.data on session:", response.data); 
+                            //props.setUserLoginDetailId(response.data); 
+                        })
+                        .catch((error) => {
+                        console.log('user login error',error);
+                })
                 console.log("res.data on login:", response.data);
+               // props.setUserLoginDetailId(response.data.user)
                 //user login success redirect to mianpage
-                history("/mainpage")
+               history("/mainpage")
+
             })
             .catch((error) => {
               console.log('user login error',error);
     })
 }
 
-    const handleChange = (event) =>{
-        const {name,value} =event.target
-        setUserLoginDetail({
-            ...userLoginDetail,
-            [name]:value
-        })
-        console.log(userLoginDetail)
-    }
+    // const handleChange = (event) =>{
+    //     const {name,value} =event.target
+    //     setUserLoginDetail({
+    //         ...userLoginDetail,
+    //         [name]:value
+    //     })
+    //     console.log(userLoginDetail)
+    // }
 
   return (
     <div className='userLogin_container'>
         <h2>Login page</h2>
         <form  onSubmit={handleSubmit}>
             <label>Email</label>
-            <input type='email' name='email' onChange={handleChange} value={userLoginDetail.email}></input>
+            <input type='email' name='email' ></input>
             <br/>
             <label>Password</label>
-            <input type='password' name='password' onChange={handleChange} value={userLoginDetail.password}></input>
+            <input type='password' name='password' ></input>
             <br/>
             <input type='submit'></input>
           
