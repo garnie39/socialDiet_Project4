@@ -8,8 +8,9 @@ function UserLogin() {
 
     const history =useNavigate()
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState();
     const [userLoginDetail, setUserLoginDetail] =useState({})
+    const [errorMessage, setErrorMessage] =useState();
 
     const handleSubmit =  (event) => {
         event.preventDefault();
@@ -25,12 +26,15 @@ function UserLogin() {
                             setIsAuthenticated(true);
                         })
                         .catch((error) => {
+                            setIsAuthenticated(false)
                             console.log('user login error',error);
+                          
                 });
                 setUserLoginDetail(response.data);
             })
             .catch((error) => {
-              console.log('user login error',error);
+                setErrorMessage(error.response.data.message)
+                console.log('user login error',error.response.data.message);
     });
 };
 
@@ -41,15 +45,17 @@ useEffect(() => {
         //user login success redirect to mianpage
         history("/mainpage")
     } else {
-        console.log('isAuthenticated false');
+        setIsAuthenticated(false)
+        console.log('isAuthenticated false',errorMessage);
     }
-}, [isAuthenticated, userLoginDetail]);
+}, [isAuthenticated, userLoginDetail, errorMessage]);
 
 
   return (
     
     <div className='userLogin_container'>
         <h2>Login page</h2>
+        {isAuthenticated === false ? <h2 style={{color:'red'}}>{errorMessage}</h2>:''}
         <form  onSubmit={handleSubmit}>
             <label>Email</label>
             <input type='email' name='email' ></input>

@@ -23,7 +23,7 @@ const handleNewUser = async (request, response) => {
 
 //filed missing
     if (!name || !email || !password) {
-      res.status(400).json({ message: "missiong mandatory fields" });
+      response.status(400).json({ message: "missiong mandatory fields" });
       return;
     }
     if (password.length < 8) {
@@ -32,7 +32,29 @@ const handleNewUser = async (request, response) => {
         .json({ message: "password must be 8 characters or more" });
       return;
     }
-      
+    //digit includes check  if a string contains a certain type of character checking use 'test' instead includes
+    else if (!/\d/.test(password)) {
+      response
+        .status(400)
+        .json({ message: "Password must contain at least one digit." });
+      return;
+    }
+    //Uppercase check
+    else if (!/[A-Z]/.test(password)) {
+      response
+        .status(400)
+        .json({ message: "Password must contain at least one UpperCase" });
+      return;
+    }
+    //lowercase check
+    else if (!/[a-z]/.test(password)) {
+      response
+        .status(400)
+        .json({ message: "Password must contain at least one LowerCase" });
+      return;
+    };
+
+  //No error create new User
   try {
       // Create a new user document using the User model
       const newUser = await User.create({
