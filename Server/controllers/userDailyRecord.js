@@ -7,20 +7,6 @@ import mongoose from "mongoose";
 const handleNewDailyRecord = async (request,response) => {
     console.log("requestuest.body",request.body, request.session);
     const { date, weight, wellFeel, unwellFeel, toiletStool,eatCheck,exercise,alchole } = request.body;
-    // const newDailyRecord ={
-    //     date : request.body.date,
-    //     weight: request.body.weight,
-    //     wellFeel: request.body.wellFeel,
-    //     unwellFeel: request.body.unwellFeel,
-    //     toiletStool: request.body.toiletStool,
-    //     eatCheck: request.body.eatCheck,
-    //     exercise: request.body.exercise,
-    //     alchole: request.body.alchole,
-    //     userID: request.session.user._id,
-    // };
-
-    //const userIdString = requestuest.session.user._id.toHexString();
-    //console.log('check',userIdString)
     const newDailyRecord = {
         date,
         weight,
@@ -53,12 +39,23 @@ const getUserAllDailyRecord = async (request,response) =>{
     // const _id = request.params.id;
     console.log('getUserAllDailyRecord',request.session.user._id)
     try{
-        const getRecord = await DailyRecord.find({userID: request.session.user._id});
+        const getRecord = await DailyRecord.find();
         response.json({data:getRecord})
     }catch(error){
         console.log('getAll record',error)
-    }
-    
+    } 
 };
 
-export {handleNewDailyRecord, getUserAllDailyRecord}
+
+const getUserRecordData = async (request,response) => {
+    console.log("specific user data record get:", request.params.id, request);
+    try{
+        const getData = await DailyRecord.find({userID: request.params.id})
+        response.json({message:"check Data", data: getData})
+    }catch (error) {
+        console.log('get user record data:', error)
+    }
+    
+}
+
+export {handleNewDailyRecord, getUserAllDailyRecord, getUserRecordData}
