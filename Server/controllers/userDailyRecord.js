@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 const handleNewDailyRecord = async (request,response) => {
     console.log("requestuest.body",request.body, request.session);
     const { date, weight, wellFeel, unwellFeel, toiletStool,eatCheck,exercise,alchole } = request.body;
+
     const newDailyRecord = {
         date,
         weight,
@@ -21,28 +22,19 @@ const handleNewDailyRecord = async (request,response) => {
     }
 
     console.log("newDailyrecord", newDailyRecord)
+
     if (!Object.values(newDailyRecord))
     return response.status(422).json({ message: "Missing data input" });
 
     try {
         await DailyRecord.create(newDailyRecord);
         return response.json({ message: "Successfully created", data: newDailyRecord });
-      } catch (error) {
-        // console.error(error);
-        return response.status(400).json({ error: "Failed to created ", data: newDailyRecord });
-      }
-}
 
-  try {
-    await DailyRecord.create(newDailyRecord);
-    response.json({ message: "Successfully created", data: newDailyRecord });
-  } catch (error) {
-    // console.error(error);
-    response
-      .status(400)
-      .json({ error: "Failed to created ", data: newDailyRecord });
-  }
+      } catch (error) {
+        return response.status(400).json({ error: "Failed to created ", data: newDailyRecord });
+      };
 };
+
 
 const getUserAllDailyRecord = async (request,response) =>{
     // console.log("user data input:", request.params.id, request.body);
@@ -53,7 +45,7 @@ const getUserAllDailyRecord = async (request,response) =>{
         response.json({data:getRecord})
     }catch(error){
         console.log('getAll record',error)
-    } 
+    };
 };
 
 
@@ -64,8 +56,9 @@ const getUserRecordData = async (request,response) => {
         response.json({message:"check Data", data: getData})
     }catch (error) {
         console.log('get user record data:', error)
-    }
+    };
     
-}
+};
 
 export {handleNewDailyRecord, getUserAllDailyRecord, getUserRecordData}
+

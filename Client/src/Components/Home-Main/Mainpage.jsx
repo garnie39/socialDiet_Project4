@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import DailyRecord from './DailyRecord'
+import DailyRecord from '../DailyRecord'
 import NavbarPage from './Navbar'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
@@ -20,16 +20,6 @@ function Mainpage() {
     }
 
 
-    useEffect (() => {
-        axios.get('/api/session')
-
-        .then((response) => {
-            console.log("res.data on login:", response.data);  
-        })
-        .catch((error) => {
-          console.log('user login error',error);
-})
-    },[])
 
 
   return (

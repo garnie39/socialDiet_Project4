@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
- import  {useSomeCtx} from './UserLogin.jsx'
+import {UserIDContext} from '../App' 
 
 
 import {
@@ -32,16 +32,12 @@ ChartJS.register(
 );
 
 function GraphRecord() {
-     //const { userLoginDetail } = useContext(useSomeCtx);
-
-      console.log('props check',useSomeCtx)
-    //   const [userLoginDetail, setUserLoginDetail] = useSomeCtx()
-      //console.log('props check',userLoginDetail)
+     const userID= useContext(UserIDContext);
 
     const [getUserRecord, setGetUserRecord] = useState([])
 
     const handleUserRecordData = () => {
-        axios.get('/api/dailyRecord/64d707e6aa9c5f2cceb032bf')
+        axios.get(`/api/dailyRecord/${userID}`)
             .then((response) => {
                     console.log('client side response user record:' ,response.data)
                     setGetUserRecord(response.data.data)
@@ -50,29 +46,37 @@ function GraphRecord() {
             });
     };
 
-    //const labels = ["January", "February", "March", "April", "May", "June", "July"];
+  
+    const labelsBeforeSort = [];
     const labels = [];
     const data1 = [];
-  
-    //const data2 = [22, 31, 17, 32, 24, 62];
-          
-       getUserRecord.map((each) => {
-            console.log('each weight',each.weight)
-            console.log('each date',each.date)
-            console.log('each date',new Date(each.date).getMonth())
-            console.log('each date',new Date(each.date).getFullYear())
-            console.log('each date',new Date(each.date).getDate())
-            const eachDate = each.date.slice(0,10)
-            console.log('hello',eachDate)
+     
+    //From user record data just get Date and weight, sort by old date
+    const newArray =getUserRecord.map(item => (
+      {date: new Date(item.date), weight: item.weight})).slice().sort((a, b) => a.date - b.date)
+    const getDateWeight = [...newArray];
+    console.log('check m:', getDateWeight)
+
+       
+    //pass data into graph array data
+      getDateWeight.map(each => {
+             console.log('check res data:', each)
+            // console.log('each weight',each.weight)
+            // console.log('each date1',each.date)
             data1.push(each.weight)
-            labels.push(eachDate)
+            labelsBeforeSort.push(each.date)
         });
-                  
-    console.log('data1',data1)
-    console.log('label',labels)
-    // useEffect (() => {
-    //     getWeight
-    // },[handleUserRecordData()])
+
+
+    //get just date/month/year
+    labelsBeforeSort.map((checkDate) => {
+      var newYear = parseInt(new Date(checkDate).getFullYear());
+      var newMonth = parseInt(new Date(checkDate).getMonth() + 1); //month start 0~11 (needs to add +1)
+      var newDate = parseInt(new Date(checkDate).getDate());
+      const look=( newDate + '/' + newMonth + '/' + newYear);
+      labels.push(look)
+      });
+      console.log('label',labels)
 
 
     const options = {
@@ -97,11 +101,7 @@ function GraphRecord() {
             data: data1,        // which data
             backgroundColor: "rgba(255, 99, 132, 0.5)" 
           },
-        //   {
-        //     label: "Dataset 2",
-        //     data: data2,
-        //     backgroundColor: "rgba(53, 162, 235, 0.5)"
-        //   }
+          //if we want to add more different data create data into an array and add datasets here
         ]
       };
 
@@ -121,6 +121,7 @@ function GraphRecord() {
         </div>
         <p>graph</p>
         <button onClick={handleUserRecordData}>Click </button>
+        
     </div>
   )
 }
