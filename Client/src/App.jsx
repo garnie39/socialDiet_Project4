@@ -1,4 +1,4 @@
-import React ,{useState, useEffect, useContext,createContext} from 'react'
+import React ,{useState, useEffect, useContext} from 'react'
 import './App.css'
 import UserRegister from './Components/UserRegister'
 import DailyRecord from './Components/DailyRecord'
@@ -7,11 +7,12 @@ import UserLogin from './Components/UserLogin'
 import Mainpage from './Components/Mainpage'
 import Homepage from './Components/Homepage'
 import Event from "./Components/Event";
+import GraphRecord from './Components/GraphRecord'
 
-const UserIDContext = React.createContext([]);
+
 
 function App() {
-
+ 
   //const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [userLoginDetailId, setUserLoginDetailId] =useState({
@@ -19,17 +20,18 @@ function App() {
     email:'',
     _id:''
   })
-console.log('userLoginDetail check',userLoginDetailId)
+
 
   // const handleUserLoginResponse = (data) => {
   //   setUserLoginDetailId({
-  //     name: data.user.name,
-  //     email: data.user.email,
-  //     _id: data.user._id
+  //     name: data.name,
+  //     email: data.email,
+  //     _id: data._id
   //   })
   //   //check user authenticafation (if false show login opage / if true show main page)
-  //   setIsAuthenticated(true)
+  //   // setIsAuthenticated(true)
   // }
+  // console.log('userLoginDetail check',userLoginDetailId)
   // console.log('userLoginDetail check',userLoginDetailId)
 
   // const setAuth = (value) => {
@@ -37,22 +39,23 @@ console.log('userLoginDetail check',userLoginDetailId)
   // };
 
   // useEffect(()=>{
-  //  handleUserLoginResponse();
-  // }, [isAuthenticated]);
+  
+  // }, []);
 
   return (
     <>
-    <UserIDContext.Provider value={userLoginDetailId} >
+    {/* <UserIDContext.Provider value={{ userLoginDetailId, setUserLoginDetailId }} > */}
     <Routes>
     {/* <Route path="/" element={isAuthenticated === true? <Mainpage />:<UserLogin />}/> */}
-      <Route path="/userLogin" element={<UserLogin setUserLoginDetailId={setUserLoginDetailId}/>} />
+      <Route path="/userLogin" element={<UserLogin />} />
       <Route path="/toUserRegister" element={<UserRegister />} />
       <Route path="/dailyRecord" element={<DailyRecord />} />
         <Route path="/event" element={<Event />} />
       <Route path="/mainpage" element={<Mainpage  />}/>
+      <Route path="/toGraphrecord" element={<GraphRecord  />}/>
       <Route path="/" element={<Homepage />}/>
     </Routes>
-    </UserIDContext.Provider>
+    {/* </UserIDContext.Provider> */}
     </>
   );
 }
