@@ -1,8 +1,10 @@
 import Event from "../models/EventSchema.js";
+import { request, response } from "express";
+import bcrypt from "bcrypt";
 
 const handleNewEvent = async (request, response) => {
   const event = new Event({
-    userID: request.body.userID,
+    userID: request.session.user._id,
     join: request.body.join,
     userJoin: request.body.userJoin,
     date: request.body.date,
@@ -30,6 +32,21 @@ const getAllEvents = async (request, response) => {
     response.status(500).json({ message: error.message });
   }
   console.log("getAllEvents is working");
+};
+
+// get user events
+const getUserEvent = async (request, response) => {
+  try {
+    const events = await Event.find({
+      $or: [
+        { userID: request.session.user._id },
+        { userJoin: request.session.user._id },
+      ],
+    });
+    response.json({ events });
+  } catch (error) {
+    response.status(500).json({ message: error.message });
+  }
 };
 
 // get one
@@ -102,4 +119,11 @@ const updateEvent = async (request, response) => {
   console.log("updateEvent is working");
 };
 
-export { handleNewEvent, getAllEvents, getEvent, deleteEvent, updateEvent };
+export {
+  handleNewEvent,
+  getAllEvents,
+  getEvent,
+  deleteEvent,
+  updateEvent,
+  getUserEvent,
+};

@@ -28,4 +28,16 @@ Content-Type: application/json
 }
 
 ###
-DELETE /api/event/64d3909aa038e9217bcf9b85
+DELETE http://localhost:3000/api/event/64d3909aa038e9217bcf9b85
+
+###
+POST http://localhost:3000/api/register/
+Content-Type: application/json
+
+{
+    "name": "Garnie",
+    "email": "garnie@test.com",
+    "password": "09876543",
+    "DOB": "1985-12-20",
+    "location": "Melbourne"
+}

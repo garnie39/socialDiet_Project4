@@ -1,5 +1,4 @@
-import User from "../models/UserSchema.js"
-
+import User from "../models/UserSchema.js";
 
 export const verifyLoggedIn = async (req, res) => {
     try{

@@ -1,4 +1,4 @@
-import { response,request } from "express";
+import { response, request } from "express";
 import bcrypt from "bcrypt";
 import DailyRecord from "../models/DailyRecordSchema.js";
 import session from "express-session";
@@ -47,6 +47,16 @@ const handleNewDailyRecord = async (request,response) => {
       }
 }
 
+  try {
+    await DailyRecord.create(newDailyRecord);
+    response.json({ message: "Successfully created", data: newDailyRecord });
+  } catch (error) {
+    // console.error(error);
+    response
+      .status(400)
+      .json({ error: "Failed to created ", data: newDailyRecord });
+  }
+};
 
 const getUserAllDailyRecord = async (request,response) =>{
     // console.log("user data input:", request.params.id, request.body);
@@ -61,4 +71,4 @@ const getUserAllDailyRecord = async (request,response) =>{
     
 };
 
-export {handleNewDailyRecord, getUserAllDailyRecord}
+export { handleNewDailyRecord, getUserAllDailyRecord };

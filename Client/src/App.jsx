@@ -6,6 +6,7 @@ import {Routes, Route} from 'react-router-dom'
 import UserLogin from './Components/UserLogin'
 import Mainpage from './Components/Mainpage'
 import Homepage from './Components/Homepage'
+import Event from "./Components/Event";
 
 const UserIDContext = React.createContext([]);
 
@@ -39,7 +40,6 @@ console.log('userLoginDetail check',userLoginDetailId)
   //  handleUserLoginResponse();
   // }, [isAuthenticated]);
 
-
   return (
     <>
     <UserIDContext.Provider value={userLoginDetailId} >
@@ -48,12 +48,13 @@ console.log('userLoginDetail check',userLoginDetailId)
       <Route path="/userLogin" element={<UserLogin setUserLoginDetailId={setUserLoginDetailId}/>} />
       <Route path="/toUserRegister" element={<UserRegister />} />
       <Route path="/dailyRecord" element={<DailyRecord />} />
+        <Route path="/event" element={<Event />} />
       <Route path="/mainpage" element={<Mainpage  />}/>
       <Route path="/" element={<Homepage />}/>
     </Routes>
     </UserIDContext.Provider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

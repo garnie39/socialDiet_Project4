@@ -1,29 +1,29 @@
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
 
-const addressSchema = new mongoose.Schema({
-  street: String,
-  city: String,
-});
+// const addressSchema = new mongoose.Schema({
+//   street: String,
+//   city: String,
+// });
 
-const commentSchema = new mongoose.Schema({
-  user: String,
-  comment: String,
-  // createdAt: Date,
-});
+// const commentSchema = new mongoose.Schema({
+//   user: String,
+//   comment: String,
+//   // createdAt: Date,
+// });
 
 const eventSchema = new mongoose.Schema({
-  // userID: {
-  //   type: mongoose.SchemaTypes.ObjectId,
-  //   required: true,
-  // },
+  userID: {
+    type: mongoose.SchemaTypes.ObjectId,
+    required: true,
+  },
   join: {
     type: Boolean,
   },
-  // userJoin: {
-  //   type: mongoose.SchemaTypes.ObjectId,
-  //   ref: "Users",
-  // },
+  userJoin: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Users",
+  },
   // date: {
   //   type: Date,
   // },
@@ -31,13 +31,23 @@ const eventSchema = new mongoose.Schema({
     type: Object,
   },
   location: {
-    type: addressSchema,
+    type: {
+      locationName: { type: String },
+      street: { type: String },
+      city: { type: String },
+    },
   },
   eventType: {
     type: String,
   },
   comment: {
-    type: [commentSchema],
+    type: [
+      {
+        user: { type: String },
+        comment: { type: String },
+        createdAt: { type: Date },
+      },
+    ],
   },
 });
 
