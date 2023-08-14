@@ -26,11 +26,9 @@ const dailyRecordSchema = new mongoose.Schema({
   alchole: {
     type: Boolean,
   },
-  // userID: {
-  // _id:{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: true,
-  // },
+  userID: {
+    type: String
+   },
 });
 
 const dailyModel = mongoose.model("dailyRecord", dailyRecordSchema);
