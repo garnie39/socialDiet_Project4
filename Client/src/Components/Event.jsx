@@ -4,31 +4,44 @@ import Form from "react-bootstrap/Form";
 import Maps from "./EventLink/GoogleMap";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import GetAllEvents from "./EventLink/GetEvent";
+import NavbarPage from "./Navbar";
+import { useNavigate } from "react-router-dom";
+
 function SearchEvent() {
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
 
-  const handleSearch = (newSearch) => {
-    setSearch(newSearch);
-  };
-
-  const [formData, setFormData] = useState({
-    search: search,
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const latestSearch = JSON.stringify(formData);
-  };
-
-  // const handleChange = (event) => {
-  //   const { search, value} = event.target
+  // const handleSearch = () => {
 
   // }
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/session")
+  //     .then((response) => {
+  //       console.log("res.data on login", response.data);
+  //     })
+  //     .cattch((error) => {
+  //       console.log("user login error", error);
+  //     });
+  // }, []);
+
+  const logoutHistory = useNavigate();
+
+  const handleLogout = () => {
+    axios
+      .delete("/api/logout")
+      .then((res) => {
+        console.log(res);
+        logoutHistory("/");
+      })
+      .catch((error) => {
+        console.log("logout error", error);
+      });
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <a href="/event/create">+</a>
+      <form>
         <FloatingLabel controlId="floatingSearch">
           <Form.Control
             type="search"
@@ -42,6 +55,10 @@ function SearchEvent() {
       </form>
       <Maps />
       <GetAllEvents />
+      <div className="navbar-page-container">
+        <NavbarPage />
+      </div>
+      <button onClick={handleLogout}>logout</button>
     </>
   );
 }

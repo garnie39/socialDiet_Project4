@@ -10,8 +10,6 @@ function Maps(props) {
     googleMapsApiKey: import.meta.env.VITE_YOUR_API_KEY,
   });
 
-  console.log(props.location);
-
   return isLoaded && props.location ? (
     <iframe
       width="400px"

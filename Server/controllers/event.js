@@ -6,12 +6,10 @@ const handleNewEvent = async (request, response) => {
   const event = new Event({
     userID: request.session.user._id,
     join: request.body.join,
-    userJoin: request.body.userJoin,
     date: request.body.date,
     time: request.body.time,
     location: request.body.location,
     eventType: request.body.eventType,
-    comment: request.body.comment,
   });
   //create one
   try {
@@ -96,8 +94,8 @@ const updateEvent = async (request, response) => {
     response.status(500).json({ message: error.message });
   }
 
-  if (request.body.join != null) {
-    event.join = request.body.join;
+  if (request.body.date != null) {
+    event.date = request.body.date;
   }
   if (request.body.time != null) {
     event.time = request.body.time;

@@ -8,9 +8,8 @@ function GetAllEvents() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/event")
+      .get("/api/event")
       .then((response) => {
-        console.log(response.data);
         setLocations(response.data);
       })
       .catch((error) => {
@@ -20,7 +19,6 @@ function GetAllEvents() {
 
   const handleEventClick = (locationName) => {
     console.log("click");
-    console.log(locationName);
     setSelectedLocation(locationName);
   };
 
@@ -33,8 +31,10 @@ function GetAllEvents() {
           onClick={() => handleEventClick(event.location.locationName)}
         >
           <h3>Event: {event.eventType}</h3>
-          <p>Date: {event.date}</p>
-          <p>Time: {event.time}</p>
+          <p>
+            Date: {event.date} & Time: {event.time}
+          </p>
+          <a href="/eventpage">More info</a>
         </div>
       ))}
     </div>

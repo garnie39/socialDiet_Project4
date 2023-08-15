@@ -3,6 +3,9 @@ GET /api/event
 ###
 GET /api/event/64d3909aa038e9217bcf9b85
 
+###
+GET http://localhost:5173/api/event/flagstaff
+
 ### 
 POST /api/event
 Content-Type: application/json

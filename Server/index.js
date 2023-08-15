@@ -6,11 +6,11 @@ import loginRoute from "./routes/login.js";
 import logoutRoute from "./routes/logout.js";
 import apiUsersRoute from "./routes/api/users.js";
 import apiSessionRouter from "./routes/api/session.js";
-import userDailyRecord from "./routes/api/dailyRecord.js"
-import dotenv from 'dotenv'
-dotenv.config()
-import expressSession from 'express-session'
-import MongoStore from 'connect-mongo';
+import userDailyRecord from "./routes/api/dailyRecord.js";
+import dotenv from "dotenv";
+dotenv.config();
+import expressSession from "express-session";
+import MongoStore from "connect-mongo";
 import event from "./routes/events.js";
 // import { enableSession } from './middleware/session.js';
 
