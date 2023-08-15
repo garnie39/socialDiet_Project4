@@ -1,13 +1,13 @@
 import React ,{useState, useEffect, useContext, createContext} from 'react'
 import './App.css'
 import UserRegister from './Components/UserLink/UserRegister'
-import DailyRecord from './Components/DailyRecord'
+import DailyRecord from './Components/RecordLink/DailyRecord'
 import {Routes, Route} from 'react-router-dom'
 import UserLogin from './Components/UserLink/UserLogin'
 import Mainpage from './Components/Home-Main/Mainpage'
 import Homepage from './Components/Home-Main/Homepage'
 import Event from "./Components/Event";
-import GraphRecord from './Components/GraphRecord'
+import GraphRecord from './Components/RecordLink/GraphRecord'
 import axios from 'axios'
 
 export const UserIDContext = createContext()

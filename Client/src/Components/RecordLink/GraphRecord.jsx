@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
-import {UserIDContext} from '../App' 
+import {UserIDContext} from '../../App' 
 
 
 import {
@@ -32,11 +32,15 @@ ChartJS.register(
 
 function GraphRecord() {
      const userID= useContext(UserIDContext);
-
+//All records
     const [getUserRecord, setGetUserRecord] = useState([])
-
+//weight data
     const [getData1, setGetData1] = useState([])
+// date data 
     const [getLabels, setGetLabels] = useState([])
+
+
+  
 
     const handleUserRecordData = () => {
         axios.get(`/api/dailyRecord/${userID}`)
@@ -48,6 +52,10 @@ function GraphRecord() {
             });
     };
 
+
+    useEffect (() => {
+      handleUserRecordData()
+    },[])
 
    // try to get 1 week/ 1 month/ 3 months/ 6 months button
    const today = new Date()
@@ -88,17 +96,13 @@ function GraphRecord() {
           } 
         });
       // console.log('oneWeekArray',oneWeekArray)
-      //console.log('oneMonthArray',oneMonthArray)
+      // console.log('oneMonthArray',oneMonthArray)
       //  console.log('3 month', threeMonthsArray)
       //  console.log('6 month', sixMonthsArray)
     
 
-    //pass data into graph array data
-    //   getDateWeight.map(each => {
-    //         data1.push(each.weight)
-    //         labelsBeforeSort.push(each.date)
-    //     });
-    
+
+   
 
 //Chart,js  setting part
 const options = {
@@ -138,38 +142,37 @@ const divStyle = {
   marginLeft: "auto",
   marginRight: "auto",
   margin: "10px",
-  // width: "1000px",
+  width: "700px",
 };
 
 
-const handleTimePeriodBtn = (time) => {
-//reset first
- 
 
-handleUserRecordData();
+const handleTimePeriodBtn = (time) => {
+  console.log('firing')
+  handleUserRecordData();
+
+  const newWeight=[];
+  const newDateArray=[];
+
   time.map((item) => {
-    data1.push(item.weight)
+    newWeight.push(item.weight)
 // full length date data type
     labelsBeforeSort.push(item.date)
   });
 //get just date/month/year
+//pass data into graph array data
   labelsBeforeSort.map((checkDate) => {
     var newYear = parseInt(new Date(checkDate).getFullYear());
     var newMonth = parseInt(new Date(checkDate).getMonth() + 1); //month start 0~11 (needs to add +1)
     var newDate = parseInt(new Date(checkDate).getDate());
     const look=( newDate + '/' + newMonth + '/' + newYear);
     //console.log('label',look)
-    labels.push(look)
+    newDateArray.push(look)
     });
-  return setGetData1(data1),setGetLabels(labels)
+   setGetData1(newWeight)
+   setGetLabels(newDateArray)
 };
 
-
-// useEffect (() => {
-//   setGetData1([])
-//   setGetLabels([])
-// },[getData1,getLabels])
-  
 
 
   return (
