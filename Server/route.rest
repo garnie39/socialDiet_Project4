@@ -44,3 +44,28 @@ Content-Type: application/json
     "DOB": "1985-12-20",
     "location": "Melbourne"
 }
+
+###
+POST http://localhost:3000/api/comment/
+Content-Type: application/json
+
+{
+    "eventID": "64db7f39d5fa513db7be73d1",
+    "userID": "64d6cf0ae2d7d298aee3a7bf",
+    "username": "Garnie",
+    "comment": "Sounds good! Def will join"
+}
+
+###
+GET http://localhost:3000/api/comment/64db7f39d5fa513db7be73d1
+
+###
+PATCH http://localhost:3000/api/comment/64dccf38bd8951fefb3426e1
+Content-Type: application/json
+
+{
+    "comment": "For sure!"
+}
+
+###
+DELETE http://localhost:3000/api/comment/64dccb2532a43ec1fa961a38

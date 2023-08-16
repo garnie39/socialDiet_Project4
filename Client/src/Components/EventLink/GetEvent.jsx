@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Maps from "./GoogleMap";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function GetAllEvents() {
   const [locations, setLocations] = useState([]);
@@ -21,6 +22,7 @@ function GetAllEvents() {
     console.log("click");
     setSelectedLocation(locationName);
   };
+  console.log(selectedLoction);
 
   return (
     <div>
@@ -31,10 +33,11 @@ function GetAllEvents() {
           onClick={() => handleEventClick(event.location.locationName)}
         >
           <h3>Event: {event.eventType}</h3>
+          <p>{event.userID}</p>
           <p>
             Date: {event.date} & Time: {event.time}
           </p>
-          <a href="/eventpage">More info</a>
+          <Link to={`/event/page/${event._id}`}>More Info</Link>
         </div>
       ))}
     </div>

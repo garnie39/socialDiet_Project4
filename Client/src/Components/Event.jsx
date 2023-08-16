@@ -5,7 +5,6 @@ import Maps from "./EventLink/GoogleMap";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import GetAllEvents from "./EventLink/GetEvent";
 import NavbarPage from "./Navbar";
-import { useNavigate } from "react-router-dom";
 
 function SearchEvent() {
   // const [search, setSearch] = useState("");
@@ -13,30 +12,17 @@ function SearchEvent() {
   // const handleSearch = () => {
 
   // }
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/session")
-  //     .then((response) => {
-  //       console.log("res.data on login", response.data);
-  //     })
-  //     .cattch((error) => {
-  //       console.log("user login error", error);
-  //     });
-  // }, []);
 
-  const logoutHistory = useNavigate();
-
-  const handleLogout = () => {
+  useEffect(() => {
     axios
-      .delete("/api/logout")
-      .then((res) => {
-        console.log(res);
-        logoutHistory("/");
+      .get("/api/session")
+      .then((response) => {
+        console.log("res.data on login", response.data);
       })
       .catch((error) => {
-        console.log("logout error", error);
+        console.log("user login error", error);
       });
-  };
+  }, []);
 
   return (
     <>
@@ -58,7 +44,6 @@ function SearchEvent() {
       <div className="navbar-page-container">
         <NavbarPage />
       </div>
-      <button onClick={handleLogout}>logout</button>
     </>
   );
 }

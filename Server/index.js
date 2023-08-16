@@ -12,6 +12,7 @@ dotenv.config();
 import expressSession from "express-session";
 import MongoStore from "connect-mongo";
 import event from "./routes/events.js";
+import comment from "./routes/comment.js";
 // import { enableSession } from './middleware/session.js';
 
 // import { enableSession } from "./middleware/session.js";
@@ -53,6 +54,7 @@ app.use("/api/logout", logoutRoute);
 app.use("/api/session", apiSessionRouter);
 app.use("/api/dailyRecord", userDailyRecord);
 app.use("/api/event", event);
+app.use("/api/comment", comment);
 //app.use("/api/session", apiSessionRouter);
 
 app.get("/", (req, res) => {

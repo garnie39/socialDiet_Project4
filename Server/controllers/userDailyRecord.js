@@ -5,7 +5,7 @@ import session from "express-session";
 import mongoose from "mongoose";
 
 const handleNewDailyRecord = async (request, response) => {
-  console.log("requestuest.body", request.body, request.session);
+  console.log("request.body", request.body, request.session);
   const {
     date,
     weight,

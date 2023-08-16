@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import "./App.css";
 import UserRegister from "./Components/UserRegister";
 import DailyRecord from "./Components/DailyRecord";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import UserLogin from "./Components/UserLogin";
 import Mainpage from "./Components/Mainpage";
 import Homepage from "./Components/Homepage";
 import Event from "./Components/Event";
 import CreateEvent from "./Components/EventLink/CreateEvent.jsx";
 import GetSingleEventPage from "./Components/EventLink/EventSinglePage";
+import UpdateEvent from "./Components/EventLink/UpdateEvent";
+import DeleteEvent from "./Components/EventLink/DeleteEvent.jsx";
 
 const UserIDContext = React.createContext([]);
 
@@ -54,7 +56,9 @@ function App() {
           <Route path="/dailyRecord" element={<DailyRecord />} />
           <Route path="/event" element={<Event />} />
           <Route path="/event/create" element={<CreateEvent />} />
-          <Route path="/eventpage" element={<GetSingleEventPage />} />
+          <Route path="/event/page/:id" element={<GetSingleEventPage />} />
+          <Route path="/event/:id" element={<UpdateEvent />} />
+          <Route path="/event/delete/:id" element={<DeleteEvent />} />
           <Route path="/mainpage" element={<Mainpage />} />
           <Route path="/" element={<Homepage />} />
         </Routes>

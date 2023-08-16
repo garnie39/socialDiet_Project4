@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
-function CreateEvent() {
+function UpdateEvent() {
   const [fetchData, setFetchData] = useState([]);
+  const [event, setEvent] = useState([]);
+  const { id } = useParams();
+
   const history = useNavigate();
 
   const [addNewDate, setAddNewDate] = useState(new Date());
@@ -15,12 +19,14 @@ function CreateEvent() {
   const handleDateChange = (newDate) => {
     setAddNewDate(newDate);
     setNewFormDetails({
-      ...newFormDetails,
+      ...FormData,
       date: newDate,
     });
   };
 
   useEffect(() => {
+    console.log("updateEvent is mounded");
+
     axios
       .get("/api/session")
       .then((response) => {
@@ -30,13 +36,23 @@ function CreateEvent() {
       .catch((error) => {
         console.log("user login error", error);
       });
+
+    axios
+      .get(`/api/event/page/${id}`)
+      .then((response) => {
+        setEvent(response.data);
+        console.log("eventPage is on", response.data);
+      })
+      .catch((error) => {
+        console.log("couldn't get event", error);
+      });
   }, []);
 
-  console.log(fetchData._id);
+  console.log(fetchData);
+  console.log(event);
 
   const [newFormDetails, setNewFormDetails] = useState({
     userID: fetchData._id,
-    // userJoin: [],
     date: addNewDate,
     time: "",
     location: {
@@ -54,9 +70,6 @@ function CreateEvent() {
 
     const newData = newFormDetails;
 
-    console.log(event);
-    console.log(newData);
-
     newData.location = {
       locationName: newData.locationName,
       street: newData.street,
@@ -64,11 +77,11 @@ function CreateEvent() {
     };
 
     axios
-      .post("/api/event", newData)
+      .patch(`/api/event/${id}`, newData)
       .then((response) => {
         const nameDataGet = response.config.data;
-        console.log("check111", nameDataGet);
-        history("/mainpage");
+        console.log("check123", nameDataGet);
+        history(`/event/page/${id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -87,11 +100,11 @@ function CreateEvent() {
   return (
     <>
       <div className="eventBar">
-        <a href="/event">Back</a>
+        <a href={`/event/page/${id}`}>Back</a>
       </div>
-      <div className="createEventForm">
+      <div className="UpdateEventForm">
         <form onSubmit={handleSubmit}>
-          <h1>Create Event</h1>
+          <h1>Edit Event</h1>
           <br />
           <div className="calendar_container">
             <label>Date:</label>
@@ -127,7 +140,7 @@ function CreateEvent() {
             <Form.Control
               type="street"
               name="street"
-              placeholder="Street Name"
+              placeholder="Street"
               onChange={handleChange}
             />
             <br />
@@ -149,6 +162,9 @@ function CreateEvent() {
               onChange={handleChange}
             />
           </FloatingLabel>
+          <br />
+          <label>Event Details:</label>
+          <br />
           <FloatingLabel className="floatingEventType">
             <Form.Control
               type="eventDetail"
@@ -163,5 +179,4 @@ function CreateEvent() {
     </>
   );
 }
-
-export default CreateEvent;
+export default UpdateEvent;

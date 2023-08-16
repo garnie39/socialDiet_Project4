@@ -10,11 +10,12 @@ function Maps(props) {
     googleMapsApiKey: import.meta.env.VITE_YOUR_API_KEY,
   });
 
+  console.log(props);
   return isLoaded && props.location ? (
     <iframe
       width="400px"
       height="400px"
-      loading="lazy"
+      // loading="lazy"
       src={`https://www.google.com/maps/embed/v1/place?key=${
         import.meta.env.VITE_YOUR_API_KEY
       }&q=${props.location}`}
