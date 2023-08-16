@@ -4,6 +4,14 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 
+import {
+    MDBContainer,
+    MDBInput,
+    MDBCheckbox,
+    MDBBtn,
+    MDBIcon,
+  }
+  from 'mdb-react-ui-kit';
 
 function UserRegister() {
     
@@ -66,51 +74,61 @@ function UserRegister() {
     
       return (
         <>
-        <div className="register-form">
-        <form onSubmit={handleSubmit}>
-            <h1>Your Details</h1>
-            {errorMessage === ''? '':<h2 style={{color:'red'}}>{errorMessage}</h2>}
-            <FloatingLabel controlId="floatingName" label="Name">
-                <Form.Control type="text" placeholder="Name" style={{ width: '300px' }} name="name" 
-                onChange={handleChange}  value={newFormDetails.name} required/>
-            </FloatingLabel>
-            <br/>
-       
+        <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+        <h2 style={{textAlign:'center'}}>Your Details Sign up</h2>
+        {errorMessage === ''? '':<h2 style={{color:'red'}}>{errorMessage}</h2>}
+        <form  onSubmit={handleSubmit}>
+        <MDBInput wrapperClass='mb-4' label='Name' id='form1' type='text'
+        name="name" onChange={handleChange}  value={newFormDetails.name} required/>
+            
+        <MDBInput wrapperClass='mb-4' label='Email address' id='form1'  type='email' name='email'
+        onChange={handleChange} value={newFormDetails.email} required/>
 
-            <FloatingLabel controlId="floatingEmail" label="Email addresponses" className="mb-3">
-                <Form.Control type="email" placeholder="email@example.com" style={{ width: '300px' }} name='email'   
-                onChange={handleChange} value={newFormDetails.email} required/>
-            </FloatingLabel>
-            <br/>
+        <MDBInput wrapperClass='mb-4' label='Password more than 8 chalacters' id='form2' type='password' name='password' 
+        onChange={handleChange} value={newFormDetails.password} required/>
 
+        <MDBInput wrapperClass='mb-4' label='location' id='form2' type='text' name='location' 
+        onChange={handleChange}  value={newFormDetails.location} required/>
 
-            <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3">
-                <Form.Control type="password" placeholder="more than 8 chalacters" style={{ width: '300px' }} name='password'  
-                onChange={handleChange} value={newFormDetails.password} required />
-            </FloatingLabel>
-            <br/>
-
-            <FloatingLabel controlId="floatingLocation" label="Location">
-                <Form.Control type="text" placeholder="location" style={{ width: '300px' }} name="location"  
-                onChange={handleChange}  value={newFormDetails.location} required/>
-            </FloatingLabel>
-            <br/>
-
-            <FloatingLabel controlId="floatingDOB" label="DOB">
-                <Form.Control type="date" placeholder="DOB" style={{ width: '300px' }} name="dob"  
-                onChange={handleChange}  value={newFormDetails.dob} required/>
-            </FloatingLabel>
+        <MDBInput wrapperClass='mb-4' label='Date of Birth' id='form2' type='date' name="dob"  
+        onChange={handleChange}  value={newFormDetails.dob} required/>
 
 
-             <input type="submit"></input>
-            <div className='login-page'>
-                <p>Already have account?</p>
-                <button><a href='/userLogin'>Login</a></button>
-            </div> 
-           <hr/>
-           </form>
+        <div className="d-flex justify-content-between mx-3 mb-4">
+        <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+      
         </div>
-        </>
+        <MDBBtn className='mb-4' type='submit' style={{textAlign:'center'}} >Register</MDBBtn>
+    </form>
+     
+    
+      <div className="text-center">
+        <p>Are you a member? <a href='/userLogin' style={{color:'blue'}}>Login </a></p>
+        
+
+        <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='facebook-f' size="sm"/>
+          </MDBBtn>
+
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='twitter' size="sm"/>
+          </MDBBtn>
+
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='google' size="sm"/>
+          </MDBBtn>
+
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='github' size="sm"/>
+          </MDBBtn>
+
+        </div>
+      </div>
+
+    </MDBContainer>
+
+    </>
       );
 }
 

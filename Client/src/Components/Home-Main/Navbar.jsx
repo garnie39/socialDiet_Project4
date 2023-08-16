@@ -1,29 +1,66 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-
+import React ,{} from 'react';
+import axios from 'axios'
+import { useNavigate } from "react-router-dom"
+import {
+  MDBNavbar,
+  MDBContainer,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBNavbarBrand,
+} from 'mdb-react-ui-kit';
 
 function NavbarPage() {
-    return (
-      <>
-      <Navbar bg="light" data-bs-theme="light">
-          <Container>
-            <Nav className="me-auto">
-            <Nav.Link href='toHome'>Home</Nav.Link>
-              <br/>
-              <Nav.Link href="toActivity">Activity</Nav.Link>
-              <br/>
-              <Nav.Link href="toGraphRecord">Graph</Nav.Link>
-              <br/>
-              <Nav.Link href="toInput">anyLink</Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
-        <br />
-      </>
-    )
-  }
-  
-  export default NavbarPage
+
+  const logoutHistory =useNavigate()
+
+    const handleLogout =()=>{
+        axios.delete("/api/logout").then((res) => {
+            console.log(res)
+            logoutHistory("/")
+        })
+        .catch((error) => {
+            console.log('logout error',error)
+        })
+    }
+
+
+  return (
+    <>
+
+      <MDBNavbar expand='lg' light style={{ backgroundColor: 'orange' }}>
+        <MDBContainer fluid>
+          <MDBNavbarBrand href='/'>Diet.Mate</MDBNavbarBrand>
+    
+         
+            <MDBNavbarNav className='me-auto mb-2 mb-lg-0'>
+         
+              <MDBNavbarItem>
+                <MDBNavbarLink href='/dailyRecord'>Daily Record</MDBNavbarLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <MDBNavbarLink href='toGraphRecord'>Weight Graph</MDBNavbarLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <MDBNavbarLink href='event'>Event</MDBNavbarLink>
+              </MDBNavbarItem>
+           
+              <MDBNavbarItem className='active'>
+                <MDBNavbarLink aria-current='page' href='#' onClick={handleLogout}>
+                  Logout
+                </MDBNavbarLink>
+              </MDBNavbarItem>
+     
+              </MDBNavbarNav>
+        </MDBContainer>
+      </MDBNavbar>
+      
+    </>
+  );
+}
+
+export default NavbarPage;
+
+
+
+

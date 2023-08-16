@@ -4,6 +4,16 @@ import Mainpage from '../Home-Main/Mainpage';
 import { useNavigate } from 'react-router-dom';
 
 
+import {
+  MDBContainer,
+  MDBInput,
+  MDBCheckbox,
+  MDBBtn,
+  MDBIcon,
+}
+from 'mdb-react-ui-kit';
+
+
 function UserLogin() {
 
     const history =useNavigate()
@@ -52,25 +62,50 @@ useEffect(() => {
 
 
   return (
-    
-    <div className='userLogin_container'>
-        <h2>Login page</h2>
-        {isAuthenticated === false ? <h2 style={{color:'red'}}>{errorMessage}</h2>:''}
-        <form  onSubmit={handleSubmit}>
-            <label>Email</label>
-            <input type='email' name='email' ></input>
-            <br/>
-            <label>Password</label>
-            <input type='password' name='password' ></input>
-            <br/>
-            <input type='submit'></input>
-          
-        </form>
-        <div className='register-page'>
-            <p>Are you new?</p>
-            <button><a href="/toUserRegister">Register</a></button>
+    <>
+    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+    <h2 style={{textAlign:'center'}}>Login page</h2>
+    {isAuthenticated === false ? <h2 style={{color:'red'}}>{errorMessage}</h2>:''}
+    <form  onSubmit={handleSubmit}>
+        
+        <MDBInput wrapperClass='mb-4' label='Email address' id='form1'  type='email' name='email'/>
+        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' name='password' />
+
+        <div className="d-flex justify-content-between mx-3 mb-4">
+        <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+        <a href="!#" style={{color:'blue'}}>Forgot password?</a>
         </div>
-    </div>
+        <MDBBtn className='mb-4' type='submit' style={{textAlign:'center'}} >Sign in</MDBBtn>
+    </form>
+     
+    
+      <div className="text-center">
+        <p>Not a member? <a href="/toUserRegister" style={{color:'blue'}}>Register</a></p>
+        <p>or sign up with:</p>
+
+        <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='facebook-f' size="sm"/>
+          </MDBBtn>
+
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='twitter' size="sm"/>
+          </MDBBtn>
+
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='google' size="sm"/>
+          </MDBBtn>
+
+          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+            <MDBIcon fab icon='github' size="sm"/>
+          </MDBBtn>
+
+        </div>
+      </div>
+
+    </MDBContainer>
+
+    </>
   
   )
 }
