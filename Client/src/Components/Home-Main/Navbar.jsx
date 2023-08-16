@@ -42,7 +42,7 @@ function NavbarPage() {
                 <MDBNavbarLink href='toGraphRecord'>Weight Graph</MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink href='#'>Program Activity</MDBNavbarLink>
+                <MDBNavbarLink href='event'>Event</MDBNavbarLink>
               </MDBNavbarItem>
            
               <MDBNavbarItem className='active'>
@@ -54,8 +54,13 @@ function NavbarPage() {
               </MDBNavbarNav>
         </MDBContainer>
       </MDBNavbar>
+      
     </>
   );
 }
 
 export default NavbarPage;
+
+
+
+

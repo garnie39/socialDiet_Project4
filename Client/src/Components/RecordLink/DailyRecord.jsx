@@ -1,12 +1,25 @@
 import React, { useState, useEffect, Component } from 'react';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import axios from 'axios'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import GraphRecord from './GraphRecord';
 
+
+
+
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Card from 'react-bootstrap/Card';
+
+//icon
+import { IconContext } from "react-icons";
+import { TfiFaceSmile, TfiFaceSad} from "react-icons/tfi";
+import { FaToilet } from "react-icons/fa";
+import { CiBeerMugFull } from "react-icons/ci";
+import { PiBasketball } from "react-icons/pi";
+import { ImSpoonKnife } from "react-icons/im"
 
 function DailyRecord() {
 
@@ -21,13 +34,7 @@ function DailyRecord() {
       date: newDate
     });
   };
-  // console.log('year',addNewDate.getFullYear())
-  // //getMonth returns 0~11, needs to add 1
-  // console.log('month',addNewDate.getMonth()+1)
-  // //getDate returns date of month (1~31)
-  // console.log('date',addNewDate.getDate())
-  // console.log('UTC date and time:', addNewDate.toISOString()); // UTC date and time
-  // console.log('Local date and time:', addNewDate.toLocaleString()); // Local date and time in your current time zone
+  
 
   const [formData, setFormData] = useState({ 
     date: addNewDate,
@@ -76,9 +83,52 @@ console.log(formData)
   // },[setAddNewDate]);
 
   return (
+<>
+{/* <Card >
+        <GraphRecord variant="top"   />
+        
+        <Card.Body>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+          <Form>
+      <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+        <Form.Label column sm="2">
+          Email
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control plaintext readOnly defaultValue="email@example.com" />
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+        <Form.Label column sm="2">
+          Password
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control type="password" placeholder="Password" />
+        </Col>
+      </Form.Group>
+    </Form>
+        </Card.Body>
+     
+      </Card>
+      <br /> */}
+
+
+
+
+
+
+<IconContext.Provider value={{ size: 50 }}>
+
+
         <div className="dailyRecordform">
         <form onSubmit={handleSubmit} >
         <h2>Ddaily Record page</h2>
+
+
             <br/>
             <div className='calendar_container'>
             <DatePicker name='date'  selected={addNewDate} onChange={handleDateChange} />
@@ -90,25 +140,44 @@ console.log(formData)
               <br/>
               <label>Today's feeling</label>
               <br/>
-              <button type='button' name='wellFeel' value={true} onClick={handleOnClickChange}>well</button>
-              <button type='button' name='unwellFeel' value={true} onClick={handleOnClickChange}>unwell</button>
-              <button type='button' name='toiletStool' value={true} onClick={handleOnClickChange}>Toilet</button>
-              <button type='button' name='eatCheck' value={true} onClick={handleOnClickChange}>Food</button>
-              <button type='button' name='exercise' value={true} onClick={handleOnClickChange}>Exercise</button>
-              <button type='button' name='alchole' value={true} onClick={handleOnClickChange}>Alchole</button>
+
+
+
+            <button type='button' name='wellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'wellFeel', value: true } })}
+            style={{ backgroundColor : formData['wellFeel'] ? 'pink' : 'white '}}>
+              <TfiFaceSmile />
+            </button>
+            <button type='button' name='unwellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'unwellFeel', value: true } })}
+            style={{ backgroundColor : formData['unwellFeel'] ? 'lightBlue' : 'white '}}>
+              <TfiFaceSad />
+            </button>
+            <button type='button' name='toiletStool' value={true} onClick={() => handleOnClickChange({ target: { name: 'toiletStool', value: true } })}
+            style={{ backgroundColor : formData['toiletStool'] ? 'orange' : 'white '}}>
+              <FaToilet />
+            </button>
+            <button type='button' name='eatCheck' value={true} onClick={() => handleOnClickChange({ target: { name: 'eatCheck', value: true } })}
+            style={{ backgroundColor : formData['eatCheck'] ? 'lightGreen' : 'white '}}>
+              <ImSpoonKnife />
+            </button>
+            <button type='button' name='exercise' value={true} onClick={() => handleOnClickChange({ target: { name: 'exercise', value: true } })}
+            style={{ backgroundColor : formData['exercise'] ? 'purple' : 'white '}}>
+              <PiBasketball />
+            </button>
+            <button type='button'  name='alchole' value={true} onClick={() => handleOnClickChange({ target: { name: 'alchole', value: true } })}
+            style={{ backgroundColor : formData['alchole'] ? 'yellow' : 'white '}}>
+              <CiBeerMugFull  />
+            </button>
+            <br/>
             </div>
            <input type="submit"></input>
            <hr/>
            </form>
    
         </div>
+        </IconContext.Provider>
+        </>
   )
 }
 
 export default DailyRecord
-
-
-
-
-
 
