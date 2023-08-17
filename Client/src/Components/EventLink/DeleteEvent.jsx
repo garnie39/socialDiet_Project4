@@ -36,6 +36,7 @@ function DeleteEvent() {
       .then((response) => {
         console.log(response);
         history("/event");
+        window.location.reload();
       })
       .catch((error) => {
         console.log("Delete Event Error", error);
