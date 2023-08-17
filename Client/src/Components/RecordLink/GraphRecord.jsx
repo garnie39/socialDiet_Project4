@@ -97,8 +97,8 @@ function GraphRecord() {
         });
       // console.log('oneWeekArray',oneWeekArray)
       // console.log('oneMonthArray',oneMonthArray)
-      //  console.log('3 month', threeMonthsArray)
-      //  console.log('6 month', sixMonthsArray)
+      // console.log('3 month', threeMonthsArray)
+      // console.log('6 month', sixMonthsArray)
     
 
 

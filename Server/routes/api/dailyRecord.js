@@ -1,5 +1,5 @@
 import express from "express";
-import { handleNewDailyRecord, getUserAllDailyRecord,getUserRecordData } from "../../controllers/userDailyRecord.js";
+import { handleNewDailyRecord, getUserAllDailyRecord, getUserRecordData, handleEditDailyRecord } from "../../controllers/userDailyRecord.js";
 
 const router = express.Router();
 
@@ -9,6 +9,6 @@ router.get("/", getUserAllDailyRecord)
 router
 .route("/:id")
 .get(getUserRecordData)
-
+.patch(handleEditDailyRecord)
 
 export default router;

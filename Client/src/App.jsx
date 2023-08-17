@@ -37,20 +37,19 @@ function App() {
     <>
       <UserIDContext.Provider value={ userLoginDetailId }>
         <Routes>
-          {/* <Route path="/" element={isAuthenticated === true? <Mainpage />:<UserLogin />}/> */}
           <Route
             path="/userLogin"
             element={<UserLogin  />}
           />
           <Route path="/toUserRegister" element={<UserRegister />} />
           <Route path="/dailyRecord" element={<DailyRecord />} />
-        <Route path="/event" element={<Event />} />
+          <Route path="/event" element={<Event />} />
           <Route path="/event/create" element={<CreateEvent />} />
           <Route path="/event/page/:id" element={<GetSingleEventPage />} />
           <Route path="/event/:id" element={<UpdateEvent />} />
           <Route path="/event/delete/:id" element={<DeleteEvent />} />
           <Route path="/mainpage" element={<Mainpage />} />
-      <Route path="/toGraphrecord" element={<GraphRecord  />}/>
+          <Route path="/toGraphrecord" element={<GraphRecord  />}/>
           <Route path="/" element={<Homepage />} />
         </Routes>
       </UserIDContext.Provider>

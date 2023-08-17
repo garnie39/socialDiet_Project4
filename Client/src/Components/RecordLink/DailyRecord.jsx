@@ -1,10 +1,12 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect, Component, useContext } from 'react';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import GraphRecord from './GraphRecord';
+import { useNavigate} from 'react-router-dom';
+import {UserIDContext} from '../../App' ;
 
 
 
@@ -20,13 +22,15 @@ import { FaToilet } from "react-icons/fa";
 import { CiBeerMugFull } from "react-icons/ci";
 import { PiBasketball } from "react-icons/pi";
 import { ImSpoonKnife } from "react-icons/im"
+import { nextDay } from 'date-fns';
 
 function DailyRecord() {
 
+  const history =useNavigate()
 
 
-  const [addNewDate, setAddNewDate] = useState(new Date());
-
+  const [ addNewDate, setAddNewDate] = useState(new Date());
+ 
   const handleDateChange = (newDate) =>{
     setAddNewDate(newDate);
     setFormData({
@@ -39,14 +43,68 @@ function DailyRecord() {
   const [formData, setFormData] = useState({ 
     date: addNewDate,
     weight:'',
+    bodyFat:'',
     wellFeel: false, 
     unwellFeel: false,
     toiletStool: false,
     eactCheck:false,
     exercise:false,
-    alchole:false
+    alchole:false,
+    note:'',
   });
 console.log(formData)
+
+
+// const [exsistingRecord, serExsistingRecord] =useState()
+  const userID= useContext(UserIDContext);
+  const [userDataRecord, setUserDataRecord] = useState([])
+  const handleGetRecord = () =>{
+    //const {id} =useParams()
+    axios.get(`/api/dailyRecord/${userID}`)
+         .then((response) => {
+          //console.log('edit',response.data.data)
+          setUserDataRecord(response.data.data)
+  })
+  .catch((error) =>{
+          console.log('edit',error)
+  })
+};
+const exsistingDate =userDataRecord.map(each => (new Date(each.date)));
+console.log('check each', exsistingDate)
+
+
+function compareDates(userDate, existingDates) {
+  for (const date of existingDates) {
+    if (userDate.getTime() === date.getTime()) {
+      console.log('3333',userDate.getTime())
+      //return true; 
+    }
+  }
+  return false; 
+}
+
+const isDateFound = compareDates(addNewDate, exsistingDate);
+
+if (isDateFound) {
+  console.log("User input date matches an existing date.");
+} else {
+  console.log("User input date does not match any existing date.");
+}
+// useEffect(() => {
+//   const exsistingDate =userDataRecord.map(each => (each.date.slice(0,10)));
+//   console.log('check each', exsistingDate)
+//    //misa.push(each.date.slice(0,10))
+// if(exsistingDate === addNewDate){
+//   console.log('already exisiting ')
+// }else{
+//   console.log('created')
+// }
+
+// },[userDataRecord,addNewDate])
+
+
+
+
 
 
   const handleSubmit =(event) => {
@@ -59,6 +117,8 @@ console.log(formData)
       .then((response) => {
         console.log(response.config.data)
         const nameDataGet=response.config.data
+        //refresh the page
+        history("/dailyRecord")
         // const parsedData = JSON.parse(nameDataGet);
         console.log('parsedData',nameDataGet)
       })
@@ -68,19 +128,22 @@ console.log(formData)
   };
 
 
-     const handleOnClickChange =(e)=>{
-      //get from form data as name (json.key) value (json.value)
-      const {name,value} =e.target;
-      setFormData({ 
-        ...formData,
-       [name]:value,
-     });
+  const handleOnClickChange = (event) => {
+    const { name, value, type } = event.target;
+  
+    if (type === 'number' || type === 'textarea' ) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    } else {
+      // For checkboxes and buttons
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: !prevFormData[name],
+      }));
+    }
   };
-
-
-  //  useEffect(() => {
-  //   handleOnClickChange()
-  // },[setAddNewDate]);
 
   return (
 <>
@@ -131,18 +194,23 @@ console.log(formData)
 
             <br/>
             <div className='calendar_container'>
-            <DatePicker name='date'  selected={addNewDate} onChange={handleDateChange} />
+            <DatePicker name='date'  selected={addNewDate}   onChange={ handleDateChange} />
             </div>
 
             <div className='daily_weight_check'>
               <label>weight / kg</label>
-              <input type='number' name='weight' value={formData.weight} onChange={handleOnClickChange}></input>
+              <input type='number' name='weight' value={formData.weight}   onChange={handleOnClickChange}></input>
+              <br/>
+              <label>Body Fat / %</label>
+              <input type='number' name='bodyFat' value={formData.bodyFat}   onChange={handleOnClickChange}></input>
               <br/>
               <label>Today's feeling</label>
               <br/>
 
 
 
+            {/* <button type='button' name='wellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'wellFeel', value: true } })}
+            style={{ backgroundColor : formData['wellFeel'] ? 'pink' : 'white '}}> */}
             <button type='button' name='wellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'wellFeel', value: true } })}
             style={{ backgroundColor : formData['wellFeel'] ? 'pink' : 'white '}}>
               <TfiFaceSmile />
@@ -168,12 +236,15 @@ console.log(formData)
               <CiBeerMugFull  />
             </button>
             <br/>
+
+            <textarea  name='note' value={formData.note}   onChange={handleOnClickChange}  placeholder="NOTE:">NOTE:</textarea>
             </div>
-           <input type="submit"></input>
+           <input type="submit"  ></input>
            <hr/>
            </form>
    
         </div>
+        <button onClick={handleGetRecord}> edit </button>
         </IconContext.Provider>
         </>
   )
