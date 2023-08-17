@@ -4,31 +4,30 @@ import Form from "react-bootstrap/Form";
 import Maps from "./EventLink/GoogleMap";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import GetAllEvents from "./EventLink/GetEvent";
+import NavbarPage from "./Navbar";
+
 function SearchEvent() {
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
 
-  const handleSearch = (newSearch) => {
-    setSearch(newSearch);
-  };
-
-  const [formData, setFormData] = useState({
-    search: search,
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const latestSearch = JSON.stringify(formData);
-  };
-
-  // const handleChange = (event) => {
-  //   const { search, value} = event.target
+  // const handleSearch = () => {
 
   // }
 
+  useEffect(() => {
+    axios
+      .get("/api/session")
+      .then((response) => {
+        console.log("res.data on login", response.data);
+      })
+      .catch((error) => {
+        console.log("user login error", error);
+      });
+  }, []);
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <a href="/event/create">+</a>
+      <form>
         <FloatingLabel controlId="floatingSearch">
           <Form.Control
             type="search"
@@ -42,6 +41,9 @@ function SearchEvent() {
       </form>
       <Maps />
       <GetAllEvents />
+      <div className="navbar-page-container">
+        <NavbarPage />
+      </div>
     </>
   );
 }

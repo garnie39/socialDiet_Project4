@@ -3,22 +3,26 @@ import { request, response } from "express";
 import bcrypt from "bcrypt";
 
 const handleNewEvent = async (request, response) => {
-  const event = new Event({
-    userID: request.session.user._id,
-    join: request.body.join,
-    userJoin: request.body.userJoin,
-    date: request.body.date,
-    time: request.body.time,
-    location: request.body.location,
-    eventType: request.body.eventType,
-    comment: request.body.comment,
-  });
-  //create one
-  try {
-    const newEvent = await event.save();
-    response.status(201).json(newEvent);
-  } catch (error) {
-    response.status(400).json({ message: error.message });
+  if (!request.session.user) {
+    response.json({ message: "Please Login to continue" });
+    response.status(401);
+  } else {
+    const event = new Event({
+      userID: request.session.user._id,
+      join: request.body.join,
+      date: request.body.date,
+      time: request.body.time,
+      location: request.body.location,
+      eventType: request.body.eventType,
+      eventDetail: request.body.eventDetail,
+    });
+    //create one
+    try {
+      const newEvent = await event.save();
+      response.status(201).json(newEvent);
+    } catch (error) {
+      response.status(400).json({ message: error.message });
+    }
   }
   console.log("createEvent is working");
 };
@@ -96,8 +100,8 @@ const updateEvent = async (request, response) => {
     response.status(500).json({ message: error.message });
   }
 
-  if (request.body.join != null) {
-    event.join = request.body.join;
+  if (request.body.date != null) {
+    event.date = request.body.date;
   }
   if (request.body.time != null) {
     event.time = request.body.time;
@@ -107,6 +111,9 @@ const updateEvent = async (request, response) => {
   }
   if (request.body.eventType != null) {
     event.eventType = request.body.eventType;
+  }
+  if (request.body.eventDetail != null) {
+    event.eventDetail = request.body.eventDetail;
   }
 
   try {
