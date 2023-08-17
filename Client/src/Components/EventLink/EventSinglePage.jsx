@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Maps from "./GoogleMap";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import GetComments from "./comment/Comment";
+import AddComment from "./comment/CreateComment";
 
 function GetSingleEventPage() {
   const [selectedLocation, setSelectedLocation] = useState([]);
@@ -47,6 +49,8 @@ function GetSingleEventPage() {
           <h3>Time: {selectedLocation.time}</h3>
           <h4>Detail: {selectedLocation.eventDetail}</h4>
           <p>Comment:</p>
+          <AddComment />
+          <GetComments />
         </div>
       </div>
     );
