@@ -1,5 +1,6 @@
 import React from 'react'
 import mockup from "../assets/img/mockup.jpg"
+import { Link } from 'react-router-dom'
 
 function MainSection() {
   return (
@@ -13,7 +14,8 @@ function MainSection() {
                 <h1>This is our last Project <span>Diet.Mate</span></h1>
                 <h2>By Garine and Misa</h2>
                 <div className="text-center text-lg-start">
-                <a href="/userLogin" className="btn-get-started scrollto">Get Started</a>
+                <Link to={"/userLogin" } className="btn-get-started scrollto">Get Started</Link>
+                {/* <a href="/userLogin" className="btn-get-started scrollto">Get Started</a> */}
                 <a href="#about" className="btn-get-started scrollto">Check About app</a>
                 </div>
             </div>

@@ -1,14 +1,8 @@
 import React, { useState, useEffect, useContext, createContext} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { MDBContainer, MDBInput, MDBCheckbox, MDBBtn } from "mdb-react-ui-kit";
 
-import {
-  MDBContainer,
-  MDBInput,
-  MDBCheckbox,
-  MDBBtn,
-}
-from 'mdb-react-ui-kit';
 
 
 function UserLogin() {
@@ -19,11 +13,16 @@ function UserLogin() {
     const [userLoginDetail, setUserLoginDetail] =useState({})
     const [errorMessage, setErrorMessage] =useState();
 
+    const [inputChange, setInputChange] = useState({
+      email:"",
+      password:"",
+    })
+
     const handleSubmit =  (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const fields = Object.fromEntries(formData);
-        //console.log('user login check',fields);
+        console.log('user login check',fields);
           
         axios.post('/api/login',fields)
             .then((response) => {
@@ -41,10 +40,17 @@ function UserLogin() {
             })
             .catch((error) => {
                 setErrorMessage(error.response.data.message)
-                console.log('user login error',error.response.data.message);
+                console.log('user login error',error);
     });
 };
-
+const handleChange = (event) => {
+  const {name, value} =event.target;
+  setInputChange ({
+    ...inputChange,
+      [name]:value,
+  });
+  //console.log('misa',inputChange)
+}
 
 useEffect(() => {
     if (isAuthenticated === true) {
@@ -62,16 +68,19 @@ useEffect(() => {
     <>
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
       <h2 style={{textAlign:'center'}}>Login page</h2>
-      {isAuthenticated === false ? <p style={{color:'red', textAlign: 'center'}}>{errorMessage}</p>:''}
+      {isAuthenticated === false ? <p style={{color:'red', textAlign: 'center'}} id='error-message'>{errorMessage}</p>:''}
       <form  onSubmit={handleSubmit}>
-          <MDBInput wrapperClass='mb-4' label='Email address' id='form1'  type='email' name='email'/>
-          <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' name='password' />
+          <MDBInput wrapperClass='mb-4' label='Email address' id='form1'  type='email' name='email'
+          onChange={handleChange} value={inputChange.email} />
+
+          <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' name='password'
+           onChange={handleChange} value={inputChange.password} />
 
           <div className="d-flex justify-content-between mx-3 mb-4">
             <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
             <a href="!#" style={{color:'blue'}}>Forgot password?</a>
           </div>
-            <MDBBtn className='mb-4' type='submit' style={{textAlign:'center'}} >Sign in</MDBBtn>
+            <MDBBtn className='mb-4' id='submit' type='submit' style={{textAlign:'center'}} >Sign in</MDBBtn>
       </form>
       <div className="text-center">
         <p>Not a member? <a href="/toUserRegister" style={{color:'blue'}}>Register</a></p>

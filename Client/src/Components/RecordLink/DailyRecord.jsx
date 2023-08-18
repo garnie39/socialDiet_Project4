@@ -59,6 +59,7 @@ console.log(formData)
 // const [exsistingRecord, serExsistingRecord] =useState()
   const userID= useContext(UserIDContext);
   const [userDataRecord, setUserDataRecord] = useState([])
+
   const handleGetRecord = () =>{
     //const {id} =useParams()
     axios.get(`/api/dailyRecord/${userID}`)
@@ -167,7 +168,7 @@ function compareDates() {
 
             <br/>
             <div className='calendar_container'>
-            <DatePicker name='date'  selected={addNewDate}   onChange={ handleDateChange} />
+            <DatePicker name='date'  selected={addNewDate}  id='select-date' onChange={ handleDateChange} />
             </div>
 
             <div className='daily_weight_check'>
@@ -207,7 +208,7 @@ function compareDates() {
             </button>
             <br/>
 
-            <textarea  name='note' value={formData.note}   onChange={handleOnClickChange}  placeholder="NOTE:">NOTE:</textarea>
+            <textarea  name='note' value={formData.note}   onChange={handleOnClickChange}  placeholder="NOTE">NOTE:</textarea>
             </div>
            <input type="submit"  ></input>
            <hr/>

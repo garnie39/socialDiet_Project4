@@ -5,9 +5,6 @@ import { Layout } from 'antd';
 const { Content } = Layout;
 
 
-
-
-
 const stylContenMain = {
   textAlign: 'center',
   background: 'rgba(255, 165, 0, 0.6)', // Use rgba to add opacity to the background color
