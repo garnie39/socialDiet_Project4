@@ -2,16 +2,22 @@
 
 Are you ready to embark on a journey that's not only deliciously healthy but also incredibly social and inspiring? Say hello to DIET.MATE, the groundbreaking application that's about to revolutionize the way you approach your dietary goals!
 
+![alt text](https://raw.githubusercontent.com/MKuma5555/socialDiet_Project4/main/image/Screen%20Shot%202023-08-18%20at%2010.30.25%20pm.png)
 🎨 Vibrantly User-Friendly Interface: Brace yourself for a visual feast! DIET.MATE's front-end is a masterpiece, blending the latest HTML, CSS, JavaScript, REACT, and Bootstrap technologies. Get ready to be wowed by its stunning visuals and intuitive design.
 
+![alt text](https://raw.githubusercontent.com/MKuma5555/socialDiet_Project4/main/image/Screen%20Shot%202023-08-18%20at%2010.29.52%20pm.png)
 🔐 Unleash Your Inner VIP: Your journey begins with a grand entrance! Sign up and log in with style, thanks to the cutting-edge Express.js and Mongoose-powered backend. Your security and seamless experience are our top priorities.
 
+![alt text](https://raw.githubusercontent.com/MKuma5555/socialDiet_Project4/main/image/Screen%20Shot%202023-08-18%20at%2010.30.53%20pm.png)
 📊 Elevate Your Tracking Game: Say goodbye to boring spreadsheets! With DIET.MATE, your daily routine becomes a masterpiece. Log your weight measurements, capture your moods, and even document your hydration feats. The magic happens as your journey unfolds in dynamic and colorful tracking graphs. Your progress never looked this good!
 
+![alt text](https://raw.githubusercontent.com/MKuma5555/socialDiet_Project4/main/image/Screen%20Shot%202023-08-18%20at%2010.31.38%20pm.png)
 🌍 Connect, Conquer, Celebrate: Hungry for connection? DIET.MATE serves up a buffet of possibilities. Dive into the interactive map feature that helps you discover exciting activities happening right around you. Not just activities – these are opportunities to bond with other inspiring MATEs who share your zeal for a healthier lifestyle.
 
+![alt text](https://raw.githubusercontent.com/MKuma5555/socialDiet_Project4/main/image/Screen%20Shot%202023-08-18%20at%2010.32.04%20pm.png)
 🎉 You're the Event Guru: Become the star of your own show! Create, customize, and own events that mirror your passions. Whether it's a sunrise yoga session, a group hike, or a vegan picnic, you're the maestro of your dietary destiny.
 
+![alt text](https://raw.githubusercontent.com/MKuma5555/socialDiet_Project4/main/image/Screen%20Shot%202023-08-18%20at%2010.32.46%20pm.png)
 🗣 Chat, Cheer, Converse: Let your voice be heard! Engage in lively discussions and friendly banter with fellow MATEs in the comment section. The journey to a healthier you just got a lot more fun and sociable.
 
 ### Ready to Embark? Here's How:
