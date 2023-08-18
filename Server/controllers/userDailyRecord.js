@@ -93,22 +93,30 @@ const handleEditDailyRecord = async (request, response) => {
     note: request.body.note ?? undefined,
   };
 
-  // try {
-  //   const updatedDailyRecords = await DailyRecord.findByIdAndUpdate(_id, updateData, {
-  //     new: true,
-  //   });
+  try {
+    const updatedDailyRecords = await DailyRecord.findByIdAndUpdate(_id, updateData, {
+      new: true,
+    });
 
-  //   if (!updatedTrip)
-  //     return res
-  //       .status(400)
-  //       .json({ error: "Trip did not update", data: updatedTrip });
+    if (!updatedDailyRecords)
+      return response
+        .status(400)
+        .json({ error: "Record did not update", data: updateData });
 
-  //   res.json({ message: "Successfully created", data: updatedTrip });
-  // } catch (error) {
-  //   res
-  //     .status(400)
-  //     .json({ error: "Failed to created trip", data: updatedTrip });
-  // }
+    response.json({ message: "Successfully created", data: updateData });
+  } catch (error) {
+    response
+      .status(400)
+      .json({ error: "Failed to created ", data: updateData });
+  }
+  try {
+    const updated = await updateData.save();
+    console.log("Record is updated");
+    response.json(update);
+  } catch (error) {
+    response.status(500).json({ message: error.message });
+  }
+  console.log("updaterecord is working");
 };
 
 

@@ -48,7 +48,6 @@ function UserLogin() {
       ...inputChange,
         [name]:value,
     });
-    //console.log('misa',inputChange)
   };
 
 
