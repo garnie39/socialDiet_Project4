@@ -8,6 +8,9 @@ const dailyRecordSchema = new mongoose.Schema({
   weight: {
     type: Number,
   },
+  bodyFat: {
+    type: Number,
+  },
   wellFeel: {
     type: Boolean,
   },
@@ -25,6 +28,9 @@ const dailyRecordSchema = new mongoose.Schema({
   },
   alchole: {
     type: Boolean,
+  },
+  note: {
+    type: String,
   },
   userID: {
     type: String
