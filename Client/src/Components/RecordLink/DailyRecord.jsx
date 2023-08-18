@@ -48,31 +48,64 @@ function DailyRecord() {
   });
   console.log(formData);
 
-  const userID = useContext(UserIDContext);
-  const [userDataRecord, setUserDataRecord] = useState([]);
-  const handleGetRecord = () => {
-    axios
-      .get(`/api/dailyRecord/${userID}`)
-      .then((response) => {
-        setUserDataRecord(response.data.data);
-      })
-      .catch((error) => {
-        console.log("edit", error);
-      });
-  };
 
-  const existingDate = userDataRecord.map((each) => new Date(each.date));
-  console.log("check each", existingDate);
+// const [exsistingRecord, serExsistingRecord] =useState()
+  const userID= useContext(UserIDContext);
+  const [userDataRecord, setUserDataRecord] = useState([])
 
-  function compareDates() {
-    for (const date of existingDate) {
-      if (addNewDate.getTime() === date.getTime()) {
-        console.log("exsisting");
-      } else {
-        console.log("new date created");
-      }
+
+
+const handleGetRecord = () => {
+  axios
+    .get(`/api/dailyRecord/${userID}`)
+    .then((response) => {
+      //console.log('edit',response.data.data)
+      setUserDataRecord(response.data.data);
+    })
+    .catch((error) => {
+      console.log("edit", error);
+    });
+};
+
+const existingDate = userDataRecord.map((each) => new Date(each.date));
+console.log("check each", existingDate);
+
+
+
+function compareDates() {
+  for (const date of existingDate) {
+    if (addNewDate.getTime() === date.getTime()) {
+      console.log("exsisting");
+    } else {
+      console.log("new date created");
     }
   }
+}
+
+// const isDateFound = compareDates(addNewDate, exsistingDate);
+
+// if (isDateFound) {
+//   console.log("User input date matches an existing date.");
+// } else {
+//   console.log("User input date does not match any existing date.");
+// }
+
+
+// useEffect(() => {
+//   const exsistingDate =userDataRecord.map(each => (each.date.slice(0,10)));
+//   console.log('check each', exsistingDate)
+//    //misa.push(each.date.slice(0,10))
+// if(exsistingDate === addNewDate){
+//   console.log('already exisiting ')
+// }else{
+//   console.log('created')
+// }
+
+// },[userDataRecord,addNewDate])
+
+
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -84,6 +117,7 @@ function DailyRecord() {
       .post("/api/dailyRecord", newDailyData)
       .then((response) => {
         const nameDataGet = response.config.data;
+        //redirect page
         history("/dailyRecord");
         console.log("parsedData", nameDataGet);
       })
@@ -91,6 +125,9 @@ function DailyRecord() {
         console.log("handle dailyRecord error:", error);
       });
   };
+
+
+
 
   const handleOnClickChange = (event) => {
     const { name, value, type } = event.target;
@@ -107,6 +144,9 @@ function DailyRecord() {
       }));
     }
   };
+
+
+
 
   return (
     <>
@@ -305,3 +345,54 @@ function DailyRecord() {
 }
 
 export default DailyRecord;
+
+
+{/* <br/>
+            <div className='calendar_container'>
+            <DatePicker name='date'  selected={addNewDate}  id='select-date' onChange={ handleDateChange} />
+            </div>
+
+            <div className='daily_weight_check'>
+              <label>weight / kg</label>
+              <input type='number' name='weight' value={formData.weight}   onChange={handleOnClickChange}></input>
+              <br/>
+              <label>Body Fat / %</label>
+              <input type='number' name='bodyFat' value={formData.bodyFat}   onChange={handleOnClickChange}></input>
+              <br/>
+
+
+            <label>Today's feeling</label>
+              <br/>
+            <button type='button' name='wellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'wellFeel', value: true } })}
+            style={{ backgroundColor : formData['wellFeel'] ? 'pink' : 'white '}}>
+              <TfiFaceSmile />
+            </button>
+            <button type='button' name='unwellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'unwellFeel', value: true } })}
+            style={{ backgroundColor : formData['unwellFeel'] ? 'lightBlue' : 'white '}}>
+              <TfiFaceSad />
+            </button>
+            <button type='button' name='toiletStool' value={true} onClick={() => handleOnClickChange({ target: { name: 'toiletStool', value: true } })}
+            style={{ backgroundColor : formData['toiletStool'] ? 'orange' : 'white '}}>
+              <FaToilet />
+            </button>
+            <button type='button' name='eatCheck' value={true} onClick={() => handleOnClickChange({ target: { name: 'eatCheck', value: true } })}
+            style={{ backgroundColor : formData['eatCheck'] ? 'lightGreen' : 'white '}}>
+              <ImSpoonKnife />
+            </button>
+            <button type='button' name='exercise' value={true} onClick={() => handleOnClickChange({ target: { name: 'exercise', value: true } })}
+            style={{ backgroundColor : formData['exercise'] ? 'purple' : 'white '}}>
+              <PiBasketball />
+            </button>
+            <button type='button'  name='alchole' value={true} onClick={() => handleOnClickChange({ target: { name: 'alchole', value: true } })}
+            style={{ backgroundColor : formData['alchole'] ? 'yellow' : 'white '}}>
+              <CiBeerMugFull  />
+            </button>
+            <br/>
+
+            <textarea  name='note' value={formData.note}   onChange={handleOnClickChange}  placeholder="NOTE">NOTE:</textarea>
+            </div>
+           <input type="submit"  ></input>
+           <hr/>
+           </form>
+   
+        </div> */}

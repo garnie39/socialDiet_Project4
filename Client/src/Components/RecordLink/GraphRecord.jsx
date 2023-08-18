@@ -198,8 +198,7 @@ function GraphRecord() {
           Check your weight records
         </p>
 
-        <div style={btnStyle}>
-          {/* <button onClick={handleUserRecordData}> All </button> */}
+      <div style={btnStyle}>
           <Button
             style={{ color: "white", backgroundColor: "rgb(255, 132, 50)" }}
             variant="warning"

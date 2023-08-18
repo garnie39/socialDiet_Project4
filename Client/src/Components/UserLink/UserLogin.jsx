@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect, useContext, createContext} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { MDBContainer, MDBInput, MDBCheckbox, MDBBtn } from "mdb-react-ui-kit";
 
 function UserLogin() {
@@ -10,6 +9,10 @@ function UserLogin() {
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [userLoginDetail, setUserLoginDetail] = useState({});
   const [errorMessage, setErrorMessage] = useState();
+  const [inputChange, setInputChange] = useState({
+    email:"",
+    password:"",
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,6 +40,17 @@ function UserLogin() {
         console.log("user login error", error.response.data.message);
       });
   };
+
+
+  const handleChange = (event) => {
+    const {name, value} =event.target;
+    setInputChange ({
+      ...inputChange,
+        [name]:value,
+    });
+    //console.log('misa',inputChange)
+  };
+
 
   useEffect(() => {
     if (isAuthenticated === true) {
@@ -70,6 +84,8 @@ function UserLogin() {
             id="form1"
             type="email"
             name="email"
+            onChange={handleChange} 
+            value={inputChange.email}
           />
           <MDBInput
             wrapperClass="mb-4"
@@ -77,6 +93,8 @@ function UserLogin() {
             id="form2"
             type="password"
             name="password"
+            onChange={handleChange} 
+            value={inputChange.password}
           />
 
           <div className="d-flex justify-content-evenly mx-3 mb-4">

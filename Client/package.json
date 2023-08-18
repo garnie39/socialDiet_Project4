@@ -5,6 +5,7 @@
   "type": "module",
   "proxy": "http://localhost:3000",
   "scripts": {
+    "test": "vitest",
     "dev": "vite",
     "build": "vite build",
     "build4": "vite build && mv dist/* ../Server/public && cp -R src/Components/UiFirstPageLink/assets/* ../Server/public/assets",
@@ -17,6 +18,7 @@
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@jest/globals": "^29.6.2",
     "@mobiscroll/cli": "^1.13.0",
     "@mui/material": "^5.14.4",
     "@mui/x-date-pickers": "^6.11.0",
@@ -30,6 +32,7 @@
     "compose": "^0.1.2",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
+    "history": "^5.3.0",
     "mdb-react-ui-kit": "^6.2.0",
     "moment": "^2.29.4",
     "npm": "^9.8.1",
@@ -48,6 +51,9 @@
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
@@ -57,8 +63,11 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "jsdom": "^22.1.0",
     "nodemon": "^3.0.1",
     "react-chartjs-2": "^5.2.0",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vitest": "^0.34.2",
+    "vitest-fetch-mock": "^0.2.2"
   }
 }
