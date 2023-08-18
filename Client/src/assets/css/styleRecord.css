@@ -1,0 +1,66 @@
+body {
+  font-family: sans-serif;
+  background-color: #ffaf8d;
+}
+
+.info {
+  border-radius: 8px;
+  border-color: #9e8678;
+  min-height: 40px;
+  min-width: 300px;
+  margin: 5px;
+  border: 1px solid rgb(85, 85, 85);
+  text-align: center;
+}
+
+.emoji {
+  margin: 10px;
+  font-size: 30px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: rgb(85, 85, 85);
+}
+
+.emojiBtn {
+  border-radius: 7px;
+  margin: 5px;
+  border-style: initial;
+  border-color: #fff9c9;
+  height: 70px;
+  width: 70px;
+  color: rgb(160, 89, 41);
+  background-color: rgb(255, 132, 50);
+}
+
+.note {
+  min-height: 100px;
+  min-width: 300px;
+  border-radius: 8px;
+  border-color: #9e8678;
+}
+
+form > h2 {
+  color: rgb(244, 149, 85);
+  font-size: 40px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+form > input {
+  background-color: #ec9f48;
+  height: 45px;
+  width: 120px;
+  font-size: 18px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
