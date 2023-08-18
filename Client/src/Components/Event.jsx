@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Maps from "./EventLink/GoogleMap";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import GetAllEvents from "./EventLink/GetEvent";
-import NavbarPage from "./Navbar";
+import NavbarPage from "./Home-Main/Navbar";
 
 function SearchEvent() {
   // const [search, setSearch] = useState("");

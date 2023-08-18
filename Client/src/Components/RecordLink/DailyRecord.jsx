@@ -7,7 +7,8 @@ import Form from 'react-bootstrap/Form';
 import GraphRecord from './GraphRecord';
 import { useNavigate} from 'react-router-dom';
 import {UserIDContext} from '../../App' ;
-
+import NavbarPage from '../Home-Main/Navbar';
+import { Layout } from 'antd';
 
 
 
@@ -69,27 +70,32 @@ console.log(formData)
           console.log('edit',error)
   })
 };
-const exsistingDate =userDataRecord.map(each => (new Date(each.date)));
-console.log('check each', exsistingDate)
 
 
-function compareDates(userDate, existingDates) {
-  for (const date of existingDates) {
-    if (userDate.getTime() === date.getTime()) {
-      console.log('3333',userDate.getTime())
+const existingDate =userDataRecord.map(each => (new Date(each.date)));
+console.log('check each', existingDate)
+
+
+function compareDates() {
+  for (const date of existingDate) {
+    if (addNewDate.getTime() === date.getTime()) {
+      console.log('exsisting')
       //return true; 
+    }else{
+      console.log('new date created')
     }
   }
-  return false; 
 }
 
-const isDateFound = compareDates(addNewDate, exsistingDate);
+// const isDateFound = compareDates(addNewDate, exsistingDate);
 
-if (isDateFound) {
-  console.log("User input date matches an existing date.");
-} else {
-  console.log("User input date does not match any existing date.");
-}
+// if (isDateFound) {
+//   console.log("User input date matches an existing date.");
+// } else {
+//   console.log("User input date does not match any existing date.");
+// }
+
+
 // useEffect(() => {
 //   const exsistingDate =userDataRecord.map(each => (each.date.slice(0,10)));
 //   console.log('check each', exsistingDate)
@@ -147,49 +153,16 @@ if (isDateFound) {
 
   return (
 <>
-{/* <Card >
-        <GraphRecord variant="top"   />
-        
-        <Card.Body>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Form>
-      <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-        <Form.Label column sm="2">
-          Email
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control plaintext readOnly defaultValue="email@example.com" />
-        </Col>
-      </Form.Group>
+<NavbarPage  />
 
-      <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-        <Form.Label column sm="2">
-          Password
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control type="password" placeholder="Password" />
-        </Col>
-      </Form.Group>
-    </Form>
-        </Card.Body>
-     
-      </Card>
-      <br /> */}
-
-
-
-
-
-
+<div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'lightYellow' }}>
+{/* <Layout> */}
 <IconContext.Provider value={{ size: 50 }}>
 
 
-        <div className="dailyRecordform">
+        <div className="dailyRecordform" style={{textAlign: 'center'}}>
         <form onSubmit={handleSubmit} >
-        <h2>Ddaily Record page</h2>
+            <h2>Ddaily Record page</h2>
 
 
             <br/>
@@ -204,13 +177,10 @@ if (isDateFound) {
               <label>Body Fat / %</label>
               <input type='number' name='bodyFat' value={formData.bodyFat}   onChange={handleOnClickChange}></input>
               <br/>
-              <label>Today's feeling</label>
+
+
+            <label>Today's feeling</label>
               <br/>
-
-
-
-            {/* <button type='button' name='wellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'wellFeel', value: true } })}
-            style={{ backgroundColor : formData['wellFeel'] ? 'pink' : 'white '}}> */}
             <button type='button' name='wellFeel' value={true} onClick={() => handleOnClickChange({ target: { name: 'wellFeel', value: true } })}
             style={{ backgroundColor : formData['wellFeel'] ? 'pink' : 'white '}}>
               <TfiFaceSmile />
@@ -244,9 +214,16 @@ if (isDateFound) {
            </form>
    
         </div>
-        <button onClick={handleGetRecord}> edit </button>
+        {/* <button onClick={handleGetRecord}> edit </button> */}
         </IconContext.Provider>
-        </>
+        
+      {/* </Layout>   */}
+         
+  </div>
+   
+
+
+    </>
   )
 }
 

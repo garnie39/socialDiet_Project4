@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
-import {UserIDContext} from '../../App' 
-
+import {UserIDContext} from '../../App' ;
+import NavbarPage from '../Home-Main/Navbar';
+import Button from 'react-bootstrap/Button';
 
 import {
   Chart as ChartJS,
@@ -142,7 +143,7 @@ const divStyle = {
   marginLeft: "auto",
   marginRight: "auto",
   margin: "10px",
-  width: "700px",
+  width: "500px",
 };
 
 
@@ -173,10 +174,26 @@ const handleTimePeriodBtn = (time) => {
    setGetLabels(newDateArray)
 };
 
+const mainDiv = {
+  // flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
 
+const btnStyle =  {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '10px', // Adjust this value for spacing between buttons
+  marginTop: '10px', // Add some margin to separate buttons from the chart
+};
 
   return (
-    <div className="graph-container" >
+    <>
+    <NavbarPage />
+    <div className="graph-container"  style={mainDiv}>
        <div className='graph' style={divStyle}>
         <Line 
          height={300}
@@ -184,13 +201,17 @@ const handleTimePeriodBtn = (time) => {
          options={options} data={data} />
         </div>
         <p>Check your weight records</p>
+
+      <div style={btnStyle}>
         {/* <button onClick={handleUserRecordData}> All </button> */}
-        <button onClick={() => handleTimePeriodBtn(oneWeekArray)}> 1 week </button>
-        <button onClick={() => handleTimePeriodBtn(oneMonthArray)}> 1 month</button>
-        <button onClick={() => handleTimePeriodBtn(threeMonthsArray)}> 3 months </button>
-        <button onClick={() => handleTimePeriodBtn(sixMonthsArray)}> 6 months </button>
-        
+        <Button variant="warning" onClick={() => handleTimePeriodBtn(oneWeekArray)}> 1 week </Button>
+        <Button variant="warning" onClick={() => handleTimePeriodBtn(oneMonthArray)}> 1 month</Button>
+        <Button variant="warning" color='warning' onClick={() => handleTimePeriodBtn(threeMonthsArray)}> 3 months </Button>
+        <Button variant="warning" onClick={() => handleTimePeriodBtn(sixMonthsArray)}> 6 months </Button>
+      </div>
     </div>
+
+    </>
   )
 }
 
