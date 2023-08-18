@@ -8,8 +8,8 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
 function UpdateEvent() {
-  const [fetchData, setFetchData] = useState([]);
   const [event, setEvent] = useState([]);
+  const [userID, setUserID] = useState(null);
   const { id } = useParams();
 
   const history = useNavigate();
@@ -26,17 +26,15 @@ function UpdateEvent() {
 
   useEffect(() => {
     console.log("updateEvent is mounded");
-
     axios
       .get("/api/session")
       .then((response) => {
-        setFetchData(response.data);
+        setUserID(response.data._id);
         console.log("res.data on login", response.data);
       })
       .catch((error) => {
         console.log("user login error", error);
       });
-
     axios
       .get(`/api/event/page/${id}`)
       .then((response) => {
@@ -48,11 +46,8 @@ function UpdateEvent() {
       });
   }, []);
 
-  console.log(fetchData);
-  console.log(event);
-
   const [newFormDetails, setNewFormDetails] = useState({
-    userID: fetchData._id,
+    userID: userID,
     date: addNewDate,
     time: "",
     location: {
@@ -62,7 +57,6 @@ function UpdateEvent() {
     },
     eventType: "",
     eventDetail: "",
-    // comment: [],
   });
 
   const handleSubmit = (event) => {
@@ -98,84 +92,134 @@ function UpdateEvent() {
     });
   };
 
+  const handleOnClick = () => {
+    history(`/event/page/${id}`);
+  };
+
   return (
     <>
       <div className="eventBar">
-        <a href={`/event/page/${id}`}>Back</a>
+        <button
+          className="btn-p"
+          style={{
+            color: "white",
+            backgroundColor: "#ec9f48",
+            border: "0",
+            borderRadius: "5px",
+            height: "40px",
+            width: "100px",
+            margin: "10px",
+          }}
+          onClick={handleOnClick}
+        >
+          <i class="bi bi-arrow-left-square-fill"> Back</i>
+        </button>
       </div>
-      <div className="UpdateEventForm">
-        <form onSubmit={handleSubmit}>
-          <h1>Edit Event</h1>
-          <br />
-          <div className="calendar_container">
-            <label>Date:</label>
+      <div className="updateEvent">
+        <div className="UpdateEventForm">
+          <form onSubmit={handleSubmit}>
+            <h1>Edit Event</h1>
             <br />
-            <DatePicker
-              name="date"
-              selected={addNewDate}
-              onChange={handleDateChange}
-            />
-          </div>
-          <br />
-          <label>Time:</label>
-          <br />
-          <FloatingLabel className="floatingTime">
-            <Form.Control
-              type="time"
-              name="time"
-              placeholder="Event Time"
-              onChange={handleChange}
-            />
-          </FloatingLabel>
-          <br />
-          <label>Location:</label>
-          <br />
-          <FloatingLabel className="floatingLocation">
-            <Form.Control
-              type="locationName"
-              name="locationName"
-              placeholder="Location Name"
-              onChange={handleChange}
-            />
+            <div className="calendar_container">
+              <label>Date:</label>
+              <br />
+              <DatePicker
+                name="date"
+                selected={addNewDate}
+                onChange={handleDateChange}
+              />
+            </div>
             <br />
-            <Form.Control
-              type="street"
-              name="street"
-              placeholder="Street"
-              onChange={handleChange}
-            />
+            <label>Time:</label>
             <br />
-            <Form.Control
-              type="city"
-              name="city"
-              placeholder="City"
-              onChange={handleChange}
-            />
-          </FloatingLabel>
-          <br />
-          <label>Event Type:</label>
-          <br />
-          <FloatingLabel className="floatingEventType">
-            <Form.Control
-              type="eventType"
-              name="eventType"
-              placeholder="Event Type"
-              onChange={handleChange}
-            />
-          </FloatingLabel>
-          <br />
-          <label>Event Details:</label>
-          <br />
-          <FloatingLabel className="floatingEventType">
-            <Form.Control
-              type="eventDetail"
-              name="eventDetail"
-              placeholder="Event Detail"
-              onChange={handleChange}
-            />
-          </FloatingLabel>
-          <input type="submit"></input>
-        </form>
+            <FloatingLabel className="floatingTime">
+              <Form.Control
+                style={{ height: "25px", width: "145px", margin: "10px" }}
+                type="time"
+                name="time"
+                placeholder="Event Time"
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+            <br />
+            <label>Location:</label>
+            <br />
+            <FloatingLabel className="floatingLocation">
+              <Form.Control
+                style={{
+                  height: "25px",
+                  width: "145px",
+                  margin: "5px",
+                  fontSize: "15px",
+                  fontFamily: "sans-serif",
+                }}
+                type="locationName"
+                name="locationName"
+                placeholder="Location Name"
+                onChange={handleChange}
+              />
+              <Form.Control
+                style={{
+                  height: "25px",
+                  width: "145px",
+                  margin: "5px",
+                  fontSize: "15px",
+                  fontFamily: "sans-serif",
+                }}
+                type="street"
+                name="street"
+                placeholder="Street Name"
+                onChange={handleChange}
+              />
+              <Form.Control
+                style={{
+                  height: "25px",
+                  width: "145px",
+                  margin: "5px",
+                  fontSize: "15px",
+                  fontFamily: "sans-serif",
+                }}
+                type="city"
+                name="city"
+                placeholder="City"
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+            <br />
+            <FloatingLabel className="floatingEventType">
+              <Form.Control
+                style={{
+                  height: "25px",
+                  width: "480px",
+                  margin: "10px",
+                  fontSize: "15px",
+                  fontFamily: "sans-serif",
+                }}
+                type="eventType"
+                name="eventType"
+                placeholder="Event Type"
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+            <FloatingLabel className="floatingEventType">
+              <Form.Control
+                style={{
+                  height: "150px",
+                  width: "480px",
+                  margin: "10px",
+                  fontSize: "15px",
+                  fontFamily: "sans-serif",
+                }}
+                as="textarea"
+                rows={6}
+                name="eventDetail"
+                placeholder="Event Detail"
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+            <input type="submit"></input>
+          </form>
+        </div>
       </div>
     </>
   );
