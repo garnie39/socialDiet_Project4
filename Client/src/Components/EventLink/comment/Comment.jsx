@@ -12,7 +12,6 @@ function GetEventComments() {
     axios
       .get("/api/session")
       .then((response) => {
-        console.log("res.data on login", response.data);
         setUserID(response.data._id);
       })
       .catch((error) => {
@@ -23,8 +22,6 @@ function GetEventComments() {
     axios
       .get(`/api/comment/${id}`)
       .then((response) => {
-        console.log(response.data.comments);
-        console.log(typeof response.data.comments);
         setComments(response.data.comments);
       })
       .catch((error) => {
@@ -46,16 +43,25 @@ function GetEventComments() {
   };
 
   return (
-    <div className="commentContainer">
+    <div className="comments">
       {comments.map((comm) => {
         return (
           <div className="comment" key={comm._id}>
-            {comm.userID === userID && (
-              <button onClick={() => handleDelete(comm._id)}>X</button>
-            )}
             <h5>
               {comm.username}: {comm.comment}
             </h5>
+            {comm.userID === userID && (
+              <button
+                onClick={() => handleDelete(comm._id)}
+                style={{
+                  border: "0",
+                  color: "#ec9f48",
+                  backgroundColor: "rgb(255, 252, 240)",
+                }}
+              >
+                <i class="bi bi-x-circle"></i>
+              </button>
+            )}
           </div>
         );
       })}

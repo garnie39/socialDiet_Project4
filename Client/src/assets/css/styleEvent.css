@@ -1,0 +1,97 @@
+.Econtainer {
+  display: flex;
+  justify-content: center;
+}
+.eventcontainer {
+  display: flexbox;
+  flex: coloum;
+  width: 600px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.map {
+  display: flex;
+  justify-content: center;
+}
+
+.eventbox {
+  margin: 20px;
+  padding: 10px;
+  border-color: #ec9f48;
+  border-style: dashed;
+  background-color: rgb(255, 255, 255);
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.createContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.createEventForm {
+  display: flexbox;
+  flex: coloum;
+  text-align: center;
+}
+.box {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  margin-bottom: 50px;
+}
+
+.containerEvent {
+  display: grid;
+  grid-template-areas: "event comment";
+  gap: 10px;
+}
+
+.eventDetail {
+  grid-area: "event";
+  justify-content: center;
+  padding: 5px;
+  min-width: 300px;
+}
+
+.commentContainer {
+  grid-area: "comment";
+  display: grid;
+  min-width: 300px;
+}
+
+.commentBar {
+  display: flex;
+  justify-content: center;
+}
+
+.comments {
+  gap: 10px;
+  background-color: #ec9f48;
+  border-radius: 20px;
+}
+
+.comment {
+  background-color: rgb(255, 252, 240);
+  width: 280px;
+  min-height: 15px;
+  border-radius: 25px;
+  margin: 10px;
+  padding: 5px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.updateEvent {
+  display: flex;
+  justify-content: center;
+}
+
+.UpdateEventForm {
+  display: flexbox;
+  flex: coloum;
+  text-align: center;
+}

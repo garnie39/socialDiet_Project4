@@ -3,6 +3,7 @@ import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
+import "../../../assets/css/styleEvent.css";
 
 function AddComment() {
   const [fetchData, setFetchData] = useState([]);
@@ -76,12 +77,38 @@ function AddComment() {
         <form onSubmit={handleSubmit}>
           <FloatingLabel className="floatingTime">
             <Form.Control
-              type="comment"
+              style={{
+                height: "100px",
+                width: "300px",
+                margin: "10px",
+                fontFamily: "sans-serif",
+              }}
+              as="textarea"
+              rows={5}
               name="comment"
               placeholder="Comment"
               onChange={handleChange}
             />
-            <input type="submit"></input>
+            <br />
+            <input
+              type="submit"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                backgroundColor: "#ec9f48",
+                color: "white",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                cursor: "pointer",
+                margin: "0 auto",
+                height: "45px",
+                width: "120px",
+                fontSize: "18px",
+                whiteSpace: "nowrap",
+              }}
+            ></input>
           </FloatingLabel>
         </form>
       </div>
