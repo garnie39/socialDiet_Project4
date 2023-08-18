@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import Maps from "./GoogleMap";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import GetComments from "./comment/Comment";
+import GetEventComments from "./comment/Comment.jsx";
 import AddComment from "./comment/CreateComment";
 
 function GetSingleEventPage() {
   const [selectedLocation, setSelectedLocation] = useState([]);
   const [selectedMap, setSelectedMap] = useState(null);
-  const [comment, setComment] = useState([]);
   const [userID, setUserID] = useState(null);
-  console.log(selectedLocation);
   const { id } = useParams();
 
   useEffect(() => {
@@ -36,39 +34,27 @@ function GetSingleEventPage() {
       });
   }, []);
 
-  if (userID === selectedLocation.userID) {
-    return (
+  return (
+    <div>
+      <a href="/event">Back</a>
+      {userID === selectedLocation.userID && (
+        <>
+          <a href={`/event/${selectedLocation._id}`}>Edit</a>
+          <a href={`/event/delete/${selectedLocation._id}`}>Delete</a>
+        </>
+      )}
+      <div>{selectedMap ? <Maps location={selectedMap} /> : <></>}</div>
       <div>
-        <a href="/event">Back</a>
-        <a href={`/event/${selectedLocation._id}`}>Edit</a>
-        <a href={`/event/delete/${selectedLocation._id}`}>Delete</a>
-        <div>{selectedMap ? <Maps location={selectedMap} /> : <></>}</div>
-        <div>
-          <h1>{selectedLocation.eventType}</h1>
-          <h3>Date: {selectedLocation.date}</h3>
-          <h3>Time: {selectedLocation.time}</h3>
-          <h4>Detail: {selectedLocation.eventDetail}</h4>
-          <p>Comment:</p>
-          <AddComment />
-          <GetComments />
-        </div>
+        <h1>{selectedLocation.eventType}</h1>
+        <h3>Date: {selectedLocation.date}</h3>
+        <h3>Time: {selectedLocation.time}</h3>
+        <h4>Detail: {selectedLocation.eventDetail}</h4>
+        <AddComment />
+        <p>Comment:</p>
+        <GetEventComments />
       </div>
-    );
-  } else {
-    return (
-      <div>
-        <a href="/event">Back</a>
-        <div>{selectedMap ? <Maps location={selectedMap} /> : <></>}</div>
-        <div>
-          <h1>{selectedLocation.eventType}</h1>
-          <h3>Date: {selectedLocation.date}</h3>
-          <h3>Time: {selectedLocation.time}</h3>
-          <h4>Detail: {selectedLocation.eventDetail}</h4>
-          <p>Comment:</p>
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default GetSingleEventPage;

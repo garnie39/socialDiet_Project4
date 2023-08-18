@@ -15,6 +15,10 @@ function AddComment() {
       .get("/api/session")
       .then((response) => {
         setFetchData(response.data);
+        setNewFormDetails({
+          userID: response.data._id,
+          username: response.data.name,
+        });
         console.log("res.data on login", response.data);
       })
       .catch((error) => {
@@ -25,6 +29,7 @@ function AddComment() {
       .get(`/api/event/page/${id}`)
       .then((response) => {
         setFetchEvent(response.data);
+        setNewFormDetails({ eventID: response.data._id });
         console.log("res.data on event", response.data);
       })
       .catch((error) => {
@@ -32,13 +37,10 @@ function AddComment() {
       });
   }, []);
 
-  console.log(fetchData._id);
-  console.log(fetchEvent._id);
-
   const [newFormDetails, setNewFormDetails] = useState({
-    userID: fetchData._id,
-    eventID: fetchEvent._id,
-    username: fetchData.name,
+    userID: "",
+    eventID: "",
+    username: "",
     comment: "",
   });
 
@@ -47,14 +49,13 @@ function AddComment() {
 
     const newData = newFormDetails;
 
-    console.log(newData);
-
     axios
       .post("/api/comment", newData)
       .then((response) => {
-        const namedataGet = response.config.fata;
+        const namedataGet = response.config.data;
         console.log("checkComment", namedataGet);
         history(`/event/page/${fetchEvent._id}`);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);

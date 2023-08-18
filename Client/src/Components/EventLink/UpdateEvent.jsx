@@ -82,6 +82,7 @@ function UpdateEvent() {
         const nameDataGet = response.config.data;
         console.log("check123", nameDataGet);
         history(`/event/page/${id}`);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);

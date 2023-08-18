@@ -3,11 +3,12 @@ import { request, response } from "express";
 import bcrypt from "bcrypt";
 
 const handleNewComment = async (request, response) => {
+  let comment;
   if (!request.session.user) {
     response.json({ message: "Please Login to continue" });
     response.status(401);
   } else {
-    const comment = new comment({
+    comment = new commentModel({
       eventID: request.body.eventID,
       userID: request.session.user._id,
       username: request.session.user.name,
@@ -29,8 +30,10 @@ const getEventComment = async (request, response) => {
     const comments = await commentModel.find({
       eventID: request.params.eventID,
     });
+    console.log(comments);
     response.json({ comments });
   } catch (error) {
+    console.log(error);
     response.status(500).json({ message: error.message });
   }
   console.log("getComment is working");
@@ -55,27 +58,27 @@ const deleteComment = async (request, response) => {
   console.log("deleteComment is working");
 };
 
-const updateComment = async (request, response) => {
-  let com;
-  try {
-    com = await commentModel.findById(request.params.id);
-    if (com === null) {
-      return response.status(404).json({ message: "Cannot find comment" });
-    }
-  } catch (error) {
-    response.status(500).json({ message: error.message });
-  }
+// const updateComment = async (request, response) => {
+//   let com;
+//   try {
+//     com = await commentModel.findById(request.params.id);
+//     if (com === null) {
+//       return response.status(404).json({ message: "Cannot find comment" });
+//     }
+//   } catch (error) {
+//     response.status(500).json({ message: error.message });
+//   }
 
-  if (request.body.comment != null) {
-    com.comment = request.body.comment;
-  }
-  try {
-    const updateComment = await com.save();
-    response.json(updateComment);
-  } catch (error) {
-    response.status(500).json({ message: error.message });
-  }
-  console.log("updateComment is working");
-};
+//   if (request.body.comment != null) {
+//     com.comment = request.body.comment;
+//   }
+//   try {
+//     const updateComment = await com.save();
+//     response.json(updateComment);
+//   } catch (error) {
+//     response.status(500).json({ message: error.message });
+//   }
+//   console.log("updateComment is working");
+// };
 
-export { handleNewComment, getEventComment, deleteComment, updateComment };
+export { handleNewComment, getEventComment, deleteComment };
