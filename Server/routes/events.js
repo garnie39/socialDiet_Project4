@@ -14,10 +14,10 @@ const router = express.Router();
 router.get("/", getAllEvents);
 
 // get all user's event
-router.get("/:user", getUserEvent);
+router.get("/:userID", getUserEvent);
 
 // get one
-router.get("/:id", getEvent);
+router.get("/page/:id", getEvent);
 
 // create one
 router.post("/", handleNewEvent);

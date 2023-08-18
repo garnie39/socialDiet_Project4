@@ -26,6 +26,11 @@ const eventSchema = new mongoose.Schema({
   eventType: {
     type: String,
   },
+
+  eventDetail: {
+    type: String,
+  },
+
   // comment: {
   //   type: [
   //     {
