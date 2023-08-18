@@ -9,23 +9,27 @@ const handleNewDailyRecord = async (request, response) => {
   const {
     date,
     weight,
+    bodyFat,
     wellFeel,
     unwellFeel,
     toiletStool,
     eatCheck,
     exercise,
     alchole,
+    note,
   } = request.body;
 
   const newDailyRecord = {
     date,
     weight,
+    bodyFat,
     wellFeel,
     unwellFeel,
     toiletStool,
     eatCheck,
     exercise,
     alchole,
+    note,
     userID: request.session.user._id,
     //_id: new mongoose.Types.ObjectId(request.session.user._id)
   };
@@ -48,10 +52,9 @@ const handleNewDailyRecord = async (request, response) => {
   }
 };
 
+// get all
 const getUserAllDailyRecord = async (request, response) => {
-  // console.log("user data input:", request.params.id, request.body);
-  // const _id = request.params.id;
-  console.log("getUserAllDailyRecord", request.session.user._id);
+  // console.log("getUserAllDailyRecord", request.session.user._id);
   try {
     const getRecord = await DailyRecord.find();
     response.json({ data: getRecord });
@@ -60,14 +63,55 @@ const getUserAllDailyRecord = async (request, response) => {
   }
 };
 
+// get user records
 const getUserRecordData = async (request, response) => {
   console.log("specific user data record get:", request.params.id, request);
   try {
     const getData = await DailyRecord.find({ userID: request.params.id });
-    response.json({ message: "check Data", data: getData });
+    response.json({ data: getData });
   } catch (error) {
     console.log("get user record data:", error);
   }
 };
 
-export { handleNewDailyRecord, getUserAllDailyRecord, getUserRecordData };
+
+const handleEditDailyRecord = async (request, response) => {
+  console.log("edit data input:", request.params.id, request.body);
+
+  const _id = request.params.id;
+
+  const updateData = {
+    date: request.body.date ?? undefined,
+    weight: request.body.weight ?? undefined,
+    bodyFat: request.body.bodyFat ?? undefined,
+    wellFeel: request.body.wellFeel ?? undefined,
+    unwellFeel: request.body.unwellFeel ?? undefined,
+    toiletStool: request.body.toiletStool ?? undefined,
+    eatCheck: request.body.eatCheck ?? undefined,
+    exercise: request.body.exercise ?? undefined,
+    alchole: request.body.alchole?? undefined,
+    note: request.body.note ?? undefined,
+  };
+
+  // try {
+  //   const updatedDailyRecords = await DailyRecord.findByIdAndUpdate(_id, updateData, {
+  //     new: true,
+  //   });
+
+  //   if (!updatedTrip)
+  //     return res
+  //       .status(400)
+  //       .json({ error: "Trip did not update", data: updatedTrip });
+
+  //   res.json({ message: "Successfully created", data: updatedTrip });
+  // } catch (error) {
+  //   res
+  //     .status(400)
+  //     .json({ error: "Failed to created trip", data: updatedTrip });
+  // }
+};
+
+
+
+
+export { handleNewDailyRecord, getUserAllDailyRecord, getUserRecordData, handleEditDailyRecord};

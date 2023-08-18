@@ -1,5 +1,5 @@
-import React from 'react'
-import UiFirstPageLink from '../UiFirstPageLink/UiMainPage.jsx'
+import React from 'react';
+import UiFirstPageLink from '../UiFirstPageLink/UiMainPage.jsx';
 
 
 function Homepage() {
@@ -10,4 +10,4 @@ function Homepage() {
   )
 }
 
-export default Homepage
+export default Homepage;
