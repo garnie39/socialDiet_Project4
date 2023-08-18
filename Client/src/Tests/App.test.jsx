@@ -78,46 +78,6 @@ it('show  create event correctly', async () => {
 })
 
 
-//5) login part
-
-// describe("UserLogin", () => {
-//   beforeEach(() => {
-//     fetch.resetMocks();
-//   });
-
-//     it("shows error message 'Incorrect password' if user input wrong password and clicked Sing in" , async () => {
-
-//     const mockResponse = [{
-//       "email": 'user1@test.com',
-//       "password": "12345678",
-//     }];
-//     fetch.mockResponse(JSON.stringify(mockResponse));
-//     //console.log(fetch.mockResponse(JSON.stringify(mockResponse)))
-//     vi.mock('axios')
-//     axios.post.mockResolvedValue({ error: {response: { data: { message: "Incorrect password" } } } });
-//     //fetch.mockResponse({ error :{ response: { data: { message: "Incorrect password" } } } });
-//     render(
-//     <Router >
-//       <UserLogin />
-//     </Router>
-//     );
-//     fireEvent.change(screen.getByLabelText("Email address"), {
-//       target: { value: "user1@test.com" },
-//     });
-//     fireEvent.change(screen.getByLabelText("Password"), {
-//       target: { value: "wrongpassword" },
-//     });
-
-//     await waitFor(() => {
-//       // const button = screen.getByText("Sta");
-//       // button.click();
-//       fireEvent.click(screen.getByText("Sign in"));
-//       //expect(screen.getByTextId("error-message")).toBeInTheDocument();
-//       expect(screen.getByText('Incorrect password')).toBeInTheDocument();
-//     });
-//   });
-// })
-
 
 
 

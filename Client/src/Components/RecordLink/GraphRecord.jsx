@@ -199,12 +199,6 @@ function GraphRecord() {
         </p>
 
       <div style={btnStyle}>
-        {/* <button onClick={handleUserRecordData}> All </button> */}
-        <Button variant="warning" onClick={() => handleTimePeriodBtn(oneWeekArray)}> 1 week </Button>
-        <Button variant="warning" onClick={() => handleTimePeriodBtn(oneMonthArray)}> 1 month</Button>
-        <Button variant="warning" onClick={() => handleTimePeriodBtn(threeMonthsArray)}> 3 months </Button>
-        <Button variant="warning" onClick={() => handleTimePeriodBtn(sixMonthsArray)}> 6 months </Button>
-        {/* <div style={btnStyle}>
           <Button
             style={{ color: "white", backgroundColor: "rgb(255, 132, 50)" }}
             variant="warning"
@@ -237,7 +231,7 @@ function GraphRecord() {
           >
             {" "}
             6 months{" "}
-          </Button> */}
+          </Button>
         </div>
       </div>
     </>

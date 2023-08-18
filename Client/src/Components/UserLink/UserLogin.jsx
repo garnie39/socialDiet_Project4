@@ -9,17 +9,16 @@ function UserLogin() {
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [userLoginDetail, setUserLoginDetail] = useState({});
   const [errorMessage, setErrorMessage] = useState();
+  const [inputChange, setInputChange] = useState({
+    email:"",
+    password:"",
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const fields = Object.fromEntries(formData);
     //console.log('user login check',fields);
-
-    const [inputChange, setInputChange] = useState({
-      email:"",
-      password:"",
-    })
 
     axios
       .post("/api/login", fields)
@@ -42,17 +41,18 @@ function UserLogin() {
       });
   };
 
-  useEffect(() => {
-    const handleChange = (event) => {
+
+  const handleChange = (event) => {
     const {name, value} =event.target;
     setInputChange ({
       ...inputChange,
         [name]:value,
     });
+    //console.log('misa',inputChange)
   };
-  });
 
-useEffect(() => {
+
+  useEffect(() => {
     if (isAuthenticated === true) {
       console.log("check user Login Detail: ", userLoginDetail);
       //user login success redirect to mianpage

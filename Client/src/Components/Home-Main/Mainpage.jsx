@@ -3,10 +3,6 @@ import { Layout } from "antd";
 
 const { Content } = Layout;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 const stylContenMain = {
   textAlign: "center",
   background: "rgba(255, 165, 0, 0.8)",
