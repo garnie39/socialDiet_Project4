@@ -19,6 +19,7 @@ function NavbarPage() {
       .then((res) => {
         console.log(res);
         logoutHistory("/");
+        window.location.reload();
       })
       .catch((error) => {
         console.log("logout error", error);

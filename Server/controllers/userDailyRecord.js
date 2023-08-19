@@ -74,7 +74,6 @@ const getUserRecordData = async (request, response) => {
   }
 };
 
-
 const handleEditDailyRecord = async (request, response) => {
   console.log("edit data input:", request.params.id, request.body);
 
@@ -89,14 +88,18 @@ const handleEditDailyRecord = async (request, response) => {
     toiletStool: request.body.toiletStool ?? undefined,
     eatCheck: request.body.eatCheck ?? undefined,
     exercise: request.body.exercise ?? undefined,
-    alchole: request.body.alchole?? undefined,
+    alchole: request.body.alchole ?? undefined,
     note: request.body.note ?? undefined,
   };
 
   try {
-    const updatedDailyRecords = await DailyRecord.findByIdAndUpdate(_id, updateData, {
-      new: true,
-    });
+    const updatedDailyRecords = await DailyRecord.findByIdAndUpdate(
+      _id,
+      updateData,
+      {
+        new: true,
+      }
+    );
 
     if (!updatedDailyRecords)
       return response
@@ -119,7 +122,9 @@ const handleEditDailyRecord = async (request, response) => {
   console.log("updaterecord is working");
 };
 
-
-
-
-export { handleNewDailyRecord, getUserAllDailyRecord, getUserRecordData, handleEditDailyRecord};
+export {
+  handleNewDailyRecord,
+  getUserAllDailyRecord,
+  getUserRecordData,
+  handleEditDailyRecord,
+};

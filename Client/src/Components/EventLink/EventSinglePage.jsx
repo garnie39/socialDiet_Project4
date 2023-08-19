@@ -71,6 +71,7 @@ function GetSingleEventPage() {
                 margin: "10px",
                 padding: "0",
                 color: "rgb(160, 89, 41)",
+                width: "350px",
               }}
             >
               Event: {selectedLocation.eventType}
