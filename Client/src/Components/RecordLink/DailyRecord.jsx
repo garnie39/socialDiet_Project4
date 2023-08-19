@@ -23,6 +23,7 @@ function DailyRecord() {
   const userID= useContext(UserIDContext);
   const [ userDataRecord, setUserDataRecord ] = useState([]);
   const [ existingCheck, setExisitngCheck ] = useState();
+  // const [show, setShow] = useState(true);
 
   const handleDateChange = (newDate) => {
     setAddNewDate(newDate);
@@ -96,6 +97,7 @@ function DailyRecord() {
 
   //back to date type same as input data
   const existingDate = userDataRecord.map((each) => new Date(each.date));
+  console.log('1',existingDate)
 
   //pick up only date (date/month/year as UT date type)
   const formattedDates = existingDate.map((date) => {
@@ -104,21 +106,22 @@ function DailyRecord() {
     const year = date.getUTCFullYear();
     return `${day} ${month} ${year}`;
   });
-
+console.log('2',formattedDates)
 
 //Duplicete check
   useEffect(() => {
     const compareDates = () => {
-      const day = addNewDate.getUTCDate() + 1;
+      const day = addNewDate.getUTCDate();
       const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(addNewDate);
       const year = addNewDate.getUTCFullYear();
 
       const newInputDate = `${day} ${month} ${year}`;
-
+      console.log('3', newInputDate)
       const isDuplicate = formattedDates.some(date => date === newInputDate);
-
+      console.log('4', isDuplicate)
       if (isDuplicate) {
         setExisitngCheck(true);
+        // setShow(true)
         console.log("Existing date found");
       } else {
         setExisitngCheck(false);
@@ -127,9 +130,8 @@ function DailyRecord() {
     };
     compareDates();
 
-  }, [userDataRecord, addNewDate, formattedDates]);
+  }, [userDataRecord, addNewDate, formattedDates, existingCheck]);
 
-  const [show, setShow] = useState(true);
 
 
   return (
@@ -334,7 +336,7 @@ function DailyRecord() {
           zIndex: '9999',
           textAlign:'center'
         }}>
-          <Alert show={show} variant="success">
+          <Alert variant="success">
             <Alert.Heading>Alert</Alert.Heading>
               <p>Data already exisit Do you want to overwrite ?</p>
             <hr />

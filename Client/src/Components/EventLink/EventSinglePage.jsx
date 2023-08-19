@@ -115,7 +115,13 @@ function GetSingleEventPage() {
             <h3 style={{ color: "rgb(85, 85, 85)" }}>
               Time: {selectedLocation.time}
             </h3>
-            <h3 style={{ color: "rgb(85, 85, 85)" }}>
+            <h3
+              style={{
+                color: "rgb(85, 85, 85)",
+                whiteSpace: "break-spaces",
+                width: "350px",
+              }}
+            >
               Event Detail: {selectedLocation.eventDetail}
             </h3>
             <AddComment />
