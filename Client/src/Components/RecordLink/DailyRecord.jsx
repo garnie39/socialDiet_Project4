@@ -12,16 +12,17 @@ import { CiBeerMugFull } from "react-icons/ci";
 import { PiBasketball } from "react-icons/pi";
 import { ImSpoonKnife } from "react-icons/im";
 import "../../assets/css/styleRecord.css";
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 
 function DailyRecord() {
+
   const history = useNavigate();
 
   const [addNewDate, setAddNewDate] = useState(new Date());
-  const userID = useContext(UserIDContext);
-  const [userDataRecord, setUserDataRecord] = useState([]);
-  const [existingCheck, setExisitngCheck] = useState();
+  const userID= useContext(UserIDContext);
+  const [ userDataRecord, setUserDataRecord ] = useState([]);
+  const [ existingCheck, setExisitngCheck ] = useState();
 
   const handleDateChange = (newDate) => {
     setAddNewDate(newDate);
@@ -56,7 +57,6 @@ function DailyRecord() {
         const nameDataGet = response.config.data;
         //redirect page
         history("/dailyRecord");
-        window.location.reload();
         console.log("parsedData", nameDataGet);
       })
       .catch((error) => {
@@ -79,17 +79,19 @@ function DailyRecord() {
     }
   };
 
-  //check same date overwrite record
-  const handleGetRecord = () => {
-    axios
-      .get(`/api/dailyRecord/${userID}`)
-      .then((response) => {
-        console.log("edit", response.data.data);
-        setUserDataRecord(response.data.data);
-      })
-      .catch((error) => {
-        console.log("edit", error);
-      });
+
+
+ //check same date overwrite record
+ const handleGetRecord = () => {
+  axios
+    .get(`/api/dailyRecord/${userID}`)
+    .then((response) => {
+      console.log('edit',response.data.data)
+      setUserDataRecord(response.data.data);
+    })
+    .catch((error) => {
+      console.log("edit", error);
+    });
   };
 
   //back to date type same as input data
@@ -98,25 +100,21 @@ function DailyRecord() {
   //pick up only date (date/month/year as UT date type)
   const formattedDates = existingDate.map((date) => {
     const day = date.getUTCDate();
-    const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
-      date
-    );
+    const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(date);
     const year = date.getUTCFullYear();
     return `${day} ${month} ${year}`;
   });
 
-  //Duplicete check
+//Duplicete check
   useEffect(() => {
     const compareDates = () => {
-      const day = addNewDate.getUTCDate() + 1;
-      const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
-        addNewDate
-      );
+      const day = addNewDate.getUTCDate();
+      const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(addNewDate);
       const year = addNewDate.getUTCFullYear();
 
       const newInputDate = `${day} ${month} ${year}`;
 
-      const isDuplicate = formattedDates.some((date) => date === newInputDate);
+      const isDuplicate = formattedDates.some(date => date === newInputDate);
 
       if (isDuplicate) {
         setExisitngCheck(true);
@@ -127,9 +125,10 @@ function DailyRecord() {
       }
     };
     compareDates();
-  }, [userDataRecord, addNewDate, formattedDates]);
 
-  const [show, setShow] = useState(true);
+  }, [userDataRecord, addNewDate, formattedDates, existingCheck]);
+
+
 
   return (
     <>
@@ -323,37 +322,31 @@ function DailyRecord() {
             </form>
           </div>
         </IconContext.Provider>
-        {existingCheck === true ? (
-          <div
-            style={{
-              width: 500,
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: "9999",
-              textAlign: "center",
-            }}
-          >
-            <Alert show={show} variant="success">
-              <Alert.Heading>Alert</Alert.Heading>
+        {existingCheck === true ? 
+        <div style={{
+          width:500,
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: '9999',
+          textAlign:'center'
+        }}>
+          <Alert variant="success">
+            <Alert.Heading>Alert</Alert.Heading>
               <p>Data already exisit Do you want to overwrite ?</p>
-              <hr />
+            <hr />
               <div className="d-flex justify-content-end">
                 <Button variant="outline-success">
-                  <a href={"/dailyRecord"} style={{ color: "#285243" }}>
-                    Close me{" "}
-                  </a>
+                <a href={'/dailyRecord'} style={{color:'#285243'}}>Close me </a>
                 </Button>
               </div>
-            </Alert>
-          </div>
-        ) : (
-          ""
-        )}
+          </Alert>
+          </div>: ''}
       </div>
     </>
   );
 }
 
 export default DailyRecord;
+
