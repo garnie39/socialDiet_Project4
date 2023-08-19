@@ -69,7 +69,7 @@ function CreateEvent() {
       .then((response) => {
         const nameDataGet = response.config.data;
         console.log("check111", nameDataGet);
-        history("/mainpage");
+        history("/event");
       })
       .catch((error) => {
         console.log(error);
